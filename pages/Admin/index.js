@@ -3,14 +3,13 @@ import styles from './index.module.scss';
 import { useRouter } from "next/router";
 import axios from "axios";
 import https from 'https';
+import { TextField, Button } from "@mui/material";
 
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 
 const Admin = () => {
     const router = useRouter();
-
-
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -43,23 +42,33 @@ const Admin = () => {
 
 
 
-    return (<div className="container h-100">
-        <div className="row justify-content-center align-items-center h-100">
-            <div className="col-12 col-lg-4 mt-5">
-                <form onSubmit={async (e) => await Login(e)}>
-                    <div className="mb-3">
-                        <label htmlFor="exampleInputEmail1" className="form-label">E-Posta Adresi</label>
-                        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+    return (
+        <div className={styles.wrapper}>
+            <div className="container">
+                <div className="row justify-content-center align-items-center h-100">
+                    <div className="col-12 col-lg-5">
+                        <form onSubmit={async (e) => await Login(e)}>
+                            <div className="mb-3">
+
+                                <TextField
+                                    inputProps={{ inputMode: 'email' }}
+                                    fullWidth id="exampleInputEmail1" label="E-Mail" required value={email} onChange={(e) => setEmail(e.target.value)} variant="outlined" />
+                            </div>
+                            <div className="mb-3">
+
+                                <TextField
+
+                                    fullWidth id="exampleInputPassword1" label="Şifre" required value={password} onChange={(e) => setPassword(e.target.value)} variant="outlined" />
+                            </div>
+                            <Button fullWidth type="submit" color="success" variant="contained">Giriş</Button>
+                            {/* <button type="submit" className="btn btn-success float-end">Giriş</button> */}
+                        </form>
                     </div>
-                    <div className="mb-3">
-                        <label htmlFor="exampleInputPassword1" className="form-label">Şifre</label>
-                        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="form-control" id="exampleInputPassword1" />
-                    </div>
-                    <button type="submit" className="btn btn-success float-end">Giriş</button>
-                </form>
+                </div>
+                <ToastContainer />
             </div>
         </div>
-        <ToastContainer />
-    </div>);
+
+    );
 }
 export default Admin;

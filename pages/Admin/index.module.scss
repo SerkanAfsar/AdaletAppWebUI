@@ -1,0 +1,13 @@
+.wrapper {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #ddd;
+    form {
+        padding: 40px;
+        background: #fff;
+        border-radius: 10px;
+    }
+}
