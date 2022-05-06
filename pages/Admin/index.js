@@ -40,8 +40,6 @@ const Admin = () => {
         })
     }
 
-
-
     return (
         <div className={styles.wrapper}>
             <div className="container">
@@ -49,15 +47,12 @@ const Admin = () => {
                     <div className="col-12 col-lg-5">
                         <form onSubmit={async (e) => await Login(e)}>
                             <div className="mb-3">
-
                                 <TextField
                                     inputProps={{ inputMode: 'email' }}
                                     fullWidth id="exampleInputEmail1" label="E-Mail" required value={email} onChange={(e) => setEmail(e.target.value)} variant="outlined" />
                             </div>
                             <div className="mb-3">
-
                                 <TextField
-
                                     fullWidth id="exampleInputPassword1" label="Şifre" required value={password} onChange={(e) => setPassword(e.target.value)} variant="outlined" />
                             </div>
                             <Button fullWidth type="submit" color="success" variant="contained">Giriş</Button>
@@ -68,7 +63,6 @@ const Admin = () => {
                 <ToastContainer />
             </div>
         </div>
-
     );
 }
 export default Admin;

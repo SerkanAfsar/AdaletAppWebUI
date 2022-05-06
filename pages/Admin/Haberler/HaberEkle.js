@@ -1,7 +1,12 @@
 import React from "react";
+import AdminLayout from "../../../Components/AdminLayout";
 
 const HaberEkle = () => {
 
-    return (<div>Haber Ekle</div>)
+    return (
+        <AdminLayout activeLink="haberekle">
+            <div>Haber Ekle</div>
+        </AdminLayout>
+    )
 }
 export default HaberEkle;
