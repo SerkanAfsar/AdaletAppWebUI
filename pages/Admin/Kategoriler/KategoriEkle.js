@@ -7,6 +7,7 @@ const KategoriEkle = () => {
     const [title, setTitle] = useState("");
     const [seoTitle, setSeoTitle] = useState("");
     const [seoDescription, setSeoDescription] = useState("");
+    
     return (<AdminLayout activeLink="kategoriekle">
         <form>
             <div className="mb-3">
