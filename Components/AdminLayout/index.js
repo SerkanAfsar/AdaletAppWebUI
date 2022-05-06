@@ -7,10 +7,8 @@ import { useRouter } from "next/router";
 
 
 
-const AdminLayout = ({ children }) => {
+const AdminLayout = ({ children, activeLink }) => {
     const router = useRouter();
-    const [activeLink, setActivelink] = useState();
-
     useEffect(() => {
         VerifyToken();
     }, []);
@@ -33,10 +31,10 @@ const AdminLayout = ({ children }) => {
     return (<>
         <div className="container mt-5">
             <div className="row">
-                <div className="col-12 mb-3 col-lg-4">
-                    <Menu activeLink={activeLink} setActivelink={setActivelink} />
+                <div className="col-12 mb-3 col-lg-3">
+                    <Menu activeLink={activeLink} />
                 </div>
-                <div className="col-12 mb-3 col-lg-8">
+                <div className="col-12 mb-3 col-lg-9">
                     {children}
                 </div>
             </div>

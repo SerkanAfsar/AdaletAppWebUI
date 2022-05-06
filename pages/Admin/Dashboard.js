@@ -4,7 +4,7 @@ import styles from './Dashboard.module.scss';
 
 const Dashboard = () => {
     return (
-        <AdminLayout>
+        <AdminLayout activeLink="anasayfa">
             <div>Deneme</div>
         </AdminLayout>
     )

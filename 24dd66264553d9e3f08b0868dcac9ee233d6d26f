@@ -1,0 +1,29 @@
+[33mcommit c86ac5b651767aee772c180b25202e14a27ce551[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: CrimsonSky <serkan-afsar@hotmail.com>
+Date:   Fri May 6 11:55:17 2022 +0300
+
+    Update commit
+
+[33mcommit 24dd66264553d9e3f08b0868dcac9ee233d6d26f[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: CrimsonSky <serkan-afsar@hotmail.com>
+Date:   Wed May 4 21:01:23 2022 +0300
+
+    Admin Init
+
+[33mcommit 5980571119d6ff8fef417790802b464ca4dcc61e[m
+Author: CrimsonSky <serkan-afsar@hotmail.com>
+Date:   Tue May 3 21:44:31 2022 +0300
+
+    Env Removed from git ignore
+
+[33mcommit e112cd90277ac42a9f0bf0f1ec39b3b203bf2716[m
+Author: CrimsonSky <serkan-afsar@hotmail.com>
+Date:   Tue May 3 21:41:17 2022 +0300
+
+    Admin Page Init
+
+[33mcommit 37baa43e19bbada81d96cb4b379233d5639886f7[m
+Author: CrimsonSky <serkan-afsar@hotmail.com>
+Date:   Mon May 2 19:16:57 2022 +0300
+
+    Initial commit from Create Next App

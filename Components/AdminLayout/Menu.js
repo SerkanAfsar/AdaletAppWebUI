@@ -28,6 +28,7 @@ const Menu = ({ activeLink }) => {
         setOpennews(!openNews);
     }
     return (
+<<<<<<< HEAD
         // <ul className="list-group">
         //     <li className="list-group-item active" aria-current="true">
         //         <Link href="/Admin/Dashboard">
@@ -138,6 +139,40 @@ const Menu = ({ activeLink }) => {
             </Link>
 
         </List>
+=======
+        <ul className={`list-group ${styles.list}`} >
+            <li className={`list-group-item ${activeLink == "anasayfa" ? styles.active : ''}`}>
+                <Link href="/Admin/Dashboard">
+                    <a>Anasayfa</a>
+                </Link>
+            </li>
+            <li className={`list-group-item ${activeLink == "kategoriekle" ? styles.active : ''}`}>
+                <Link href="/Admin/Kategoriler/KategoriEkle">
+                    <a>Kategori Ekle</a>
+                </Link>
+            </li>
+            <li className={`list-group-item ${activeLink == "kategoriler" ? styles.active : ''}`}>
+                <Link href="/Admin/Kategoriler">
+                    <a>Kategoriler</a>
+                </Link>
+            </li>
+            <li className={`list-group-item ${activeLink == "haberekle" ? styles.active : ''}`}>
+                <Link href="/Admin/Haberler/HaberEkle">
+                    <a>Haber Ekle</a>
+                </Link>
+            </li>
+            <li className={`list-group-item ${activeLink == "haberler" ? styles.active : ''}`}>
+                <Link href="/Admin/Haberler">
+                    <a>Haberler</a>
+                </Link>
+            </li>
+            <li className="list-group-item">
+                <Link href="/Admin/Exit">
+                    <a>Güvenli Çıkış</a>
+                </Link>
+            </li>
+        </ul>
+>>>>>>> V2
     );
 
 }
