@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styles from './index.module.scss';
-import NProgress from 'nprogress';
 import { toast, ToastContainer } from 'react-toastify';
 import Menu from "./Menu";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 
 
@@ -24,6 +24,9 @@ const AdminLayout = ({ children, activeLink }) => {
                 localStorage.removeItem('tokenKey');
                 toast.error("Oturum Süreniz Dolmuştur", { position: "top-right" });
                 router.push("/Admin");
+            }
+            else {
+                axios.defaults.headers.common['Authorization'] = `Bearer ${tokenKey.token}`;
             }
         }
     }
