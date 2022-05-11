@@ -32,6 +32,7 @@ const KategoriGuncelle = ({ result }) => {
             content
         }
         const result = await UpdateCategory(id, category);
+        console.log(result);
         if (result.hasError) {
             result.errorList?.map(item => {
                 toast.error(item, { position: "top-right" })

@@ -63,7 +63,6 @@ export const UpdateCategory = async (id, category) => {
         }
 
     }).catch(err => {
-
         const result = StatusCodeHelper(err);
         return result;
     })
