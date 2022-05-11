@@ -1,14 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import AdminLayout from "../../../Components/AdminLayout";
 import Link from "next/link";
-import { GetCategoryList } from "../../../Crud";
+import { CATEGORY_DELETE_MESSAGE } from "../../../Utilities";
+import { GetCategoryList, DeleteCategory } from "../../../Crud";
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 
 const Kategoriler = ({ result }) => {
+    const router = useRouter();
 
-    console.log(result);
+    const [list, setList] = useState(result.data || []);
 
-    const DeleteCategory = (id) => {
-
+    const DeleteCategoryProcess = async (id) => {
+        const result = await DeleteCategory(id);
+        if (result.hasError) {
+            result.errorList?.map(item => {
+                toast.error(item, { position: "top-right" })
+            })
+            result.urlPath != null ?? router.push(result.urlPath);
+        }
+        else {
+            toast.success(CATEGORY_DELETE_MESSAGE, { position: "top-right" });
+            setList((items) => items.filter(a => a.id != id));
+        }
     }
 
     return (
@@ -25,7 +39,7 @@ const Kategoriler = ({ result }) => {
                 </thead>
                 <tbody>
 
-                    {result.data?.map((item, index) => (<tr key={index}>
+                    {list?.map((item, index) => (<tr key={index}>
                         <th scope="row">{item.id}</th>
                         <td>{item.categoryName}</td>
                         <td>
@@ -47,7 +61,7 @@ const Kategoriler = ({ result }) => {
                             </Link>
                         </td>
                         <td>
-                            <a className="btn btn-danger">Sil</a>
+                            <button type="button" onClick={async () => await DeleteCategoryProcess(item.id)} className="btn btn-danger">Sil</button>
                         </td>
                     </tr>))}
 
