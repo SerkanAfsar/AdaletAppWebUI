@@ -1,53 +1,33 @@
 import React, { useEffect, useState } from "react";
 import AdminLayout from "../../../Components/AdminLayout";
 import Editor from "../../../Components/Editor";
-import axios from 'axios';
-import { agent, AUTH_ERROR_MESSAGE, CATEGORY_ADDED_MESSAGE } from '../../../Utilities';
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { CreateCategory } from "../../../Crud";
+import { CATEGORY_ADDED_MESSAGE } from "../../../Utilities";
 
 
 const KategoriEkle = () => {
     const router = useRouter();
 
-    const [title, setTitle] = useState("");
-    const [seoTitle, setSeoTitle] = useState("");
-    const [seoDescription, setSeoDescription] = useState("");
-    const [content, setContent] = useState("");
+    const [title, setTitle] = useState();
+    const [seoTitle, setSeoTitle] = useState();
+    const [seoDescription, setSeoDescription] = useState();
+    const [content, setContent] = useState();
 
     const AddCategory = async (e) => {
         e.preventDefault();
-        axios.post(`${process.env.NEXT_PUBLIC_API_URL}/Categories/AddCategory`, {
-            categoryName: title,
-            seoTitle: seoTitle,
-            seoDescription: seoDescription,
-            explanation: content
-        }, { agent: agent }).then(resp => {
+        const result = await CreateCategory({ title, seoTitle, seoDescription, content });
+        if (result.hasError) {
+            result.errorList?.map(item => {
+                toast.error(item, { position: "top-right" })
+            })
+            result.urlPath != null ?? router.push(result.urlPath);
+        }
+        else {
             toast.success(CATEGORY_ADDED_MESSAGE, { position: "top-right" });
-            router.push("/Admin/Kategoriler");
-
-        }).catch(err => {
-            switch (err.status) {
-                case 401: {
-                    toast.error(AUTH_ERROR_MESSAGE, { position: "top-right" });
-                    router.push("/Admin");
-                    break;
-                }
-                case 400: {
-                    err.response?.data?.errorList.forEach(element => {
-                        toast.error(element, { position: "top-right" });
-                    });
-                    break;
-                }
-                default: {
-                    err.response?.data?.errorList.forEach(element => {
-                        toast.error(element, { position: "top-right" });
-                    });
-                    break;
-
-                }
-            }
-        })
+            router.push(result.urlPath);
+        }
 
     }
     return (<AdminLayout activeLink="kategoriekle">
@@ -68,8 +48,8 @@ const KategoriEkle = () => {
                 <label htmlFor="seoDescription" className="form-label">İçerik</label>
                 <Editor setContent={setContent} />
             </div>
-            <button type="submit" className="btn btn-primary">Submit</button>
+            <button type="submit" className="btn btn-success float-end clearfix">Submit</button>
         </form>
-    </AdminLayout >)
+    </AdminLayout>)
 }
 export default KategoriEkle;

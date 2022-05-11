@@ -6,11 +6,11 @@ const SunEditor = dynamic(() => import("suneditor-react"), {
     ssr: false,
 });
 
-const Editor = ({ setContent }) => {
+const Editor = ({ setContent, value }) => {
 
 
     return (
-        <SunEditor
+        <SunEditor setContents={value}
             onChange={(content) => {
                 setContent(content);
             }}

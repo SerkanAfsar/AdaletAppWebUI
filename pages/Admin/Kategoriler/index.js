@@ -1,11 +1,16 @@
 import React from "react";
 import AdminLayout from "../../../Components/AdminLayout";
-import axios from "axios";
-import { agent } from "../../../Utilities";
 import Link from "next/link";
+import { GetCategoryList } from "../../../Crud";
 
 const Kategoriler = ({ result }) => {
-    console.log(result.data);
+
+    console.log(result);
+
+    const DeleteCategory = (id) => {
+
+    }
+
     return (
         <AdminLayout activeLink="kategoriler">
             <table className="table table-dark table-striped text-center align-center align-middle">
@@ -55,19 +60,7 @@ const Kategoriler = ({ result }) => {
 }
 
 export const getServerSideProps = async () => {
-    const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/Categories/GetCategoryList`, { httpsAgent: agent })
-        .then(resp => {
-
-            return {
-                hasError: false,
-                data: resp.data.entities
-            }
-        }).catch(err => {
-            return {
-                hasError: true,
-                data: err.response.data
-            }
-        });
+    const result = await GetCategoryList();
 
     return {
         props: {

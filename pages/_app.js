@@ -7,6 +7,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import '../styles/globals.scss'
 import Router from 'next/router';
 
+
 Router.onRouteChangeStart = () => {
   NProgress.start();
 }
@@ -14,6 +15,8 @@ Router.onRouteChangeStart = () => {
 Router.onRouteChangeComplete = () => {
   NProgress.done();
 }
+
+
 
 
 function MyApp({ Component, pageProps }) {
