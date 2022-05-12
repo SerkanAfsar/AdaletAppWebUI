@@ -8,10 +8,21 @@ export const GetCategory = async (id) => {
                 data: resp.data.entity
             }
         }).catch(err => {
+            const result = StatusCodeHelper(err);
+            return result;
+        });
+}
+
+export const GetCategoryWithCategorySourceList = async (id) => {
+    return await instance.get(`/Categories/GetCategoryWithCategorySourceList/${id}`)
+        .then(resp => {
             return {
-                hasError: true,
-                data: err.response.data.errorList
+                hasError: false,
+                data: resp.data.entity
             }
+        }).catch(err => {
+            const result = StatusCodeHelper(err);
+            return result;
         });
 }
 
