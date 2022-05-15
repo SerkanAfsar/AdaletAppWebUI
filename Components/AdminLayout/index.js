@@ -4,11 +4,16 @@ import { toast, ToastContainer } from 'react-toastify';
 import Menu from "./Menu";
 import { useRouter } from "next/router";
 import axios from "axios";
+import AdminTopSide from "./AdminTopSide";
+import AdminAside from "./AdminAside";
 
 
 
 const AdminLayout = ({ children, activeLink }) => {
     const router = useRouter();
+    const [closed, setClosed] = useState(false);
+
+
     useEffect(() => {
         VerifyToken();
     }, []);
@@ -32,7 +37,10 @@ const AdminLayout = ({ children, activeLink }) => {
     }
 
     return (<>
-        <div className="container mt-5">
+        <AdminTopSide closed={closed} setClosed={setClosed} />
+        <AdminAside closed={closed} />
+
+        {/* <div className="container mt-5">
             <div className="row">
                 <div className="col-12 mb-3 col-lg-3">
                     <Menu activeLink={activeLink} />
@@ -42,7 +50,7 @@ const AdminLayout = ({ children, activeLink }) => {
                 </div>
             </div>
         </div>
-        <ToastContainer />
+        <ToastContainer /> */}
     </>
     );
 }

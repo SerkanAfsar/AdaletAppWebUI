@@ -10,8 +10,6 @@ const KategoriUrlListesi = ({ result }) => {
     const [selectedItem, setSelecteditem] = useState(null);
     const [urlList, setUrlList] = useState(result.sourceList || []);
 
-
-
     return (
         <AdminLayout activeLink="kategoriler">
             <div className="row">

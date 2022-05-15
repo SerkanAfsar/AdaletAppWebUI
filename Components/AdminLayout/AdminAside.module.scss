@@ -1,0 +1,52 @@
+.aside {
+    background: #222d32;
+    width: 230px;
+    height: 100vh;
+    display: block;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+
+    transition: all 0.4s ease-in-out;
+    &.closed {
+        left: -100%;
+    }
+    .subInfo {
+        color: #fff;
+        width: 100%;
+        padding-top: 60px;
+    }
+    ul {
+        list-style: none;
+        margin: 0px;
+        padding: 0px;
+        margin-top: 10px;
+
+        li {
+            display: block;
+            padding: 10px;
+            &.active {
+                border-left: 3px solid #000;
+                background: #1e282c;
+            }
+            a {
+                display: flex;
+                align-items: center;
+
+                i {
+                    display: inline-block;
+
+                    color: #fff;
+                    font-size: 17px;
+                }
+                span {
+                    margin-left: 10px;
+                    color: #fff;
+                    display: inline-block;
+                    font-size: 15px;
+                }
+            }
+        }
+    }
+}
