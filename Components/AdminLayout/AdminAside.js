@@ -6,8 +6,12 @@ const AdminAside = ({ closed }) => {
 
     return (
         <aside className={closed == true ? `${styles.aside} ${styles.closed}` : `${styles.aside}`}>
+            <div className={styles.asideHeader}>
+                Admin Panel Yönetim
+            </div>
             <div className={styles.subInfo}>
                 Serkan Afşar.
+
             </div>
             <ul>
                 <li className={styles.active}>
