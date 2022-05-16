@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styles from './index.module.scss';
 import { toast, ToastContainer } from 'react-toastify';
-import Menu from "./Menu";
+
 import { useRouter } from "next/router";
 import axios from "axios";
 import AdminTopSide from "./AdminTopSide";
 import AdminAside from "./AdminAside";
+import Content from "./Content";
+import { AdminProvider } from "../../Context/AdminContext";
 
 
 
-const AdminLayout = ({ children, activeLink }) => {
+const AdminLayout = ({ children, activeLink, activePageName }) => {
+
     const router = useRouter();
-    const [closed, setClosed] = useState(false);
 
 
     useEffect(() => {
@@ -37,20 +39,13 @@ const AdminLayout = ({ children, activeLink }) => {
     }
 
     return (<>
-        <AdminTopSide closed={closed} setClosed={setClosed} />
-        <AdminAside closed={closed} />
+        <AdminProvider>
+            <AdminTopSide />
 
-        {/* <div className="container mt-5">
-            <div className="row">
-                <div className="col-12 mb-3 col-lg-3">
-                    <Menu activeLink={activeLink} />
-                </div>
-                <div className="col-12 mb-3 col-lg-9">
-                    {children}
-                </div>
-            </div>
-        </div>
-        <ToastContainer /> */}
+            <AdminAside />
+            <Content activePageName={activePageName} />
+            <ToastContainer />
+        </AdminProvider>
     </>
     );
 }

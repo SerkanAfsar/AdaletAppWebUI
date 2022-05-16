@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from './AdminTopSide.module.scss';
+import { AdminContext } from "../../Context/AdminContext";
 
-const AdminTopSide = ({ closed, setClosed }) => {
+const AdminTopSide = () => {
+    const { closed, setClosed } = useContext(AdminContext);
     return (
         <div className={closed ? `${styles.topSide} ${styles.closed}` : `${styles.topSide}`}>
             <i onClick={() => setClosed(!closed)} className="bi bi-list"></i>

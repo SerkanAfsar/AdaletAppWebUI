@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from './AdminAside.module.scss';
 import Link from "next/link";
+import { AdminContext } from "../../Context/AdminContext";
+const AdminAside = () => {
 
-const AdminAside = ({ closed }) => {
+    const { closed } = useContext(AdminContext);
 
     return (
         <aside className={closed == true ? `${styles.aside} ${styles.closed}` : `${styles.aside}`}>

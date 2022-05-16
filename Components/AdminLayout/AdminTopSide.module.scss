@@ -15,11 +15,12 @@
     padding-left: 230px;
 
     &.closed {
-        padding-left: 0px;
+        padding-left: 10px;
     }
     i {
         color: #fff;
         font-size: 25px;
+        cursor: pointer;
     }
 
     .rightArea {
