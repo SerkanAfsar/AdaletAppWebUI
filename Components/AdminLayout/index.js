@@ -12,10 +12,7 @@ import { AdminProvider } from "../../Context/AdminContext";
 
 
 const AdminLayout = ({ children, activeLink, activePageName }) => {
-
     const router = useRouter();
-
-
     useEffect(() => {
         VerifyToken();
     }, []);
@@ -41,9 +38,10 @@ const AdminLayout = ({ children, activeLink, activePageName }) => {
     return (<>
         <AdminProvider>
             <AdminTopSide />
-
             <AdminAside />
-            <Content activePageName={activePageName} />
+            <Content activePageName={activePageName}>
+                {children}
+            </Content>
             <ToastContainer />
         </AdminProvider>
     </>

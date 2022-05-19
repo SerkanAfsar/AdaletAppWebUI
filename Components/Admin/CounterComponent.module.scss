@@ -1,0 +1,22 @@
+.box {
+    display: block;
+
+    padding: 20px;
+    border: 1px solid #ccc;
+
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+    .title {
+        color: #000;
+        font-weight: bold;
+        font-size: 18px;
+        display: block;
+        margin-bottom: 10px;
+    }
+    .number {
+        display: block;
+        font-size: 18px;
+        font-weight: bold;
+        color: blue;
+    }
+}

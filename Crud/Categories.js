@@ -13,6 +13,19 @@ export const GetCategory = async (id) => {
         });
 }
 
+export const GetCategoryCount = async () => {
+    return await instance.get(`/Categories/GetCategoryCount`)
+        .then(resp => {
+            return {
+                hasError: false,
+                data: resp.data
+            }
+        }).catch(err => {
+            const result = StatusCodeHelper(err);
+            return result;
+        });
+}
+
 export const GetCategoryWithCategorySourceList = async (id) => {
     return await instance.get(`/Categories/GetCategoryWithCategorySourceList/${id}`)
         .then(resp => {
