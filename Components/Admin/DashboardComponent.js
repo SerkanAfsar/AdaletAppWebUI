@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { GetCategoryCount, GetNewsCount } from '../../Crud';
 
 import CounterComponent from './CounterComponent';
+import DashboardUrl from './DashboardUrl';
 
 
 const DashboardMainComponent = () => {
@@ -25,9 +26,15 @@ const DashboardMainComponent = () => {
 
 
     return (
-        <div className='row'>
+        <div className='row g-4'>
             <CounterComponent info={newsCount} />
             <CounterComponent info={categoryCount} />
+            <DashboardUrl title="Admin Ekle" link="/Admin/AdminEkle" icon="bi bi-person-plus-fill" />
+            <DashboardUrl title="Admin Listesi" link="/Admin/Adminler" icon="bi bi-people-fill" />
+            <DashboardUrl title="Kategori Ekle" link="/Admin/KategoriEkle" icon="bi bi-folder-plus" />
+            <DashboardUrl title="Kategori Listesi" link="/Admin/Kategoriler" icon="bi bi-card-checklist" />
+            <DashboardUrl title="Haber Ekle" link="/Admin/HaberEkle" icon="bi bi-file-plus" />
+            <DashboardUrl title="Haber Listesi" link="/Admin/HaberListesi" icon="bi bi-list-check" />
 
         </div>
     )
