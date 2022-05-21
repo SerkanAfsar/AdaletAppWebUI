@@ -7,7 +7,7 @@ const Content = ({ activePageName, children }) => {
     return (
         <div className={closed ? `${styles.contentWrapper}` : `${styles.contentWrapper} ${styles.closed}`}>
             <section className={`${styles.contentHeader}  shadow`}>
-                <h4>{activePageName}</h4>
+                <h4>{activePageName} </h4>
             </section>
             <div className={`${styles.contentInner} shadow`}>
                 {children}
