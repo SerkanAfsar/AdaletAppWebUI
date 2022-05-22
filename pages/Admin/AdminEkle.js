@@ -35,7 +35,7 @@ const AdminEkle = () => {
             <form onSubmit={async (e) => await AddUser(e)} className={styles.formSubmit}>
                 <div className="form-group mb-3">
                     <label htmlFor="nameSurname">Ad Soyad</label>
-                    <input type="text" className="form-control" value={nameSurname} onChange={(e) => setNameSurname(e.target.value)} id="nameSurname" aria-describedby="emailHelp" placeholder="E-Posta Adresinizi Giriniz.." />
+                    <input type="text" className="form-control" value={nameSurname} onChange={(e) => setNameSurname(e.target.value)} id="nameSurname" aria-describedby="emailHelp" placeholder="Adınızı Soyadınızı Giriniz.." />
                 </div>
                 <div className="form-group mb-3">
                     <label htmlFor="exampleInputEmail1">E-Posta Adresi</label>

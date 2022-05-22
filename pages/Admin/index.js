@@ -1,43 +1,32 @@
 import React, { useState, useEffect } from "react";
 import styles from './index.module.scss';
 import { useRouter } from "next/router";
-import axios from "axios";
-import https from 'https';
+import { LoginUser } from "../../Crud/Users";
 import { TextField, Button } from "@mui/material";
+import { instance } from "../../Utilities";
+
 
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 
 const Admin = () => {
     const router = useRouter();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [eMail, setEmail] = useState(null);
+    const [password, setPassword] = useState(null);
 
     const Login = async (e) => {
         e.preventDefault();
-        const agent = new https.Agent({
-            rejectUnauthorized: false
-        });
-        axios.post(`${process.env.NEXT_PUBLIC_API_URL}/Login/Login`, {
-            email: email,
-            password: password,
-            rePassword: password
-        }, { httpAgent: agent }).then(resp => {
-            const result = resp.data;
-            if (result.isSuccess == false) {
-                result.errorList.forEach(element => {
-                    toast.error(element, { position: "top-right" });
-                });
-            }
-            else {
-                localStorage.setItem("tokenKey", JSON.stringify(result.entity));
-                toast.success("Giriş Başarılı", { position: "top-right" });
-                router.push("/Admin/Dashboard");
-            }
+        const result = await LoginUser({ eMail, password });
+        if (result.hasError) {
+            result.errorList.forEach(element => {
+                toast.error(element, { position: "top-right" });
+            });
+            return;
+        }
+        localStorage.setItem("tokenKey", JSON.stringify(result.entity));
+        toast.success("Giriş Başarılı", { position: "top-right" });
+        router.push("/Admin/Dashboard");
 
-        }).catch(err => {
-            console.log(err);
-        })
     }
 
     return (
@@ -49,7 +38,7 @@ const Admin = () => {
                             <div className="mb-3">
                                 <TextField
                                     inputProps={{ inputMode: 'email' }}
-                                    fullWidth id="exampleInputEmail1" label="E-Mail" required value={email} onChange={(e) => setEmail(e.target.value)} variant="outlined" />
+                                    fullWidth id="exampleInputEmail1" label="E-Mail" required value={eMail} onChange={(e) => setEmail(e.target.value)} variant="outlined" />
                             </div>
                             <div className="mb-3">
                                 <TextField

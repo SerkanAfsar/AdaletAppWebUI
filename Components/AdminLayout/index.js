@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import styles from './index.module.scss';
+import React, { useEffect, useState } from "react";
+
 import { toast, ToastContainer } from 'react-toastify';
 import { useRouter } from "next/router";
 import { instance } from "../../Utilities";
@@ -7,30 +7,37 @@ import AdminTopSide from "./AdminTopSide";
 import AdminAside from "./AdminAside";
 import Content from "./Content";
 import { AdminProvider } from "../../Context/AdminContext";
+import { IsLogged } from "../../Crud";
 
 
 
 const AdminLayout = ({ children, activePageName }) => {
     const router = useRouter();
+    const [isLogged, setIsLogged] = useState(true);
+
     useEffect(() => {
         VerifyToken();
     }, []);
 
-    const VerifyToken = () => {
-        const tokenKey = localStorage.getItem('tokenKey') != null ? JSON.parse(localStorage.getItem('tokenKey')) : null;
-        if (tokenKey == null) {
+    useEffect(() => {
+        if (isLogged == false) {
+            localStorage.removeItem('tokenKey');
             toast.error("Oturum Süreniz Dolmuştur", { position: "top-right" });
-            router.push("/Admin");
+            setTimeout(() => {
+                router.push("/Admin");
+            }, 1500);
+        }
+    }, [isLogged])
+
+    const VerifyToken = async () => {
+        const result = await IsLogged();
+        const tokenKey = localStorage.getItem('tokenKey') != null ? JSON.parse(localStorage.getItem('tokenKey')) : null;
+        if (tokenKey == null || (result && !result.isSuccess) || (tokenKey && new Date(tokenKey.expireDate) <= Date.now())) {
+            setIsLogged(false);
         }
         else {
-            if (new Date(tokenKey.expireDate) <= Date.now()) {
-                localStorage.removeItem('tokenKey');
-                toast.error("Oturum Süreniz Dolmuştur", { position: "top-right" });
-                router.push("/Admin");
-            }
-            else {
-                instance.defaults.headers.common['Authorization'] = `Bearer ${tokenKey.token}`;
-            }
+            setIsLogged(true);
+            instance.defaults.headers.common['Authorization'] = `Bearer ${tokenKey.token}`;
         }
     }
 
