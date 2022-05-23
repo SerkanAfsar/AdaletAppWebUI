@@ -25,3 +25,16 @@ export const GetNewsCount = async () => {
             return result;
         })
 }
+
+export const GetAllNews = async () => {
+    return await instance.get(`/News/GetAllNews`)
+        .then(resp => {
+            return {
+                hasError: false,
+                data: resp?.data
+            }
+        }).catch(err => {
+            const result = StatusCodeHelper(err);
+            return result;
+        })
+}

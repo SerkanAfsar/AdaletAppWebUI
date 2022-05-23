@@ -17,6 +17,7 @@ const Admin = () => {
     const Login = async (e) => {
         e.preventDefault();
         const result = await LoginUser({ eMail, password });
+        console.log("Result is ", result);
         if (result.hasError) {
             result.errorList.forEach(element => {
                 toast.error(element, { position: "top-right" });
@@ -24,8 +25,12 @@ const Admin = () => {
             return;
         }
         localStorage.setItem("tokenKey", JSON.stringify(result.entity));
+        instance.defaults.headers.common['Authorization'] = `Bearer ${result.entity.token}`;
         toast.success("Giriş Başarılı", { position: "top-right" });
-        router.push("/Admin/Dashboard");
+        setTimeout(() => {
+            router.push("/Admin/Dashboard");
+        }, 2000);
+
 
     }
 
