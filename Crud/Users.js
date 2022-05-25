@@ -47,7 +47,7 @@ export const DeleteUser = async ({ userId }) => {
 }
 export const IsLogged = async () => {
     return await instance.get(`/Users/IsLogged`).then(resp => {
-        console.log(resp.data);
+
         return resp.data;
     }).catch((err) => {
         const result = StatusCodeHelper(err);

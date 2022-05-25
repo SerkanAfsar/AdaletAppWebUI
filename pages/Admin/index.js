@@ -17,7 +17,7 @@ const Admin = () => {
     const Login = async (e) => {
         e.preventDefault();
         const result = await LoginUser({ eMail, password });
-        console.log("Result is ", result);
+
         if (result.hasError) {
             result.errorList.forEach(element => {
                 toast.error(element, { position: "top-right" });

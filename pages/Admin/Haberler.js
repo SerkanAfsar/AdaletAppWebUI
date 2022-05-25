@@ -16,7 +16,38 @@ const columns = [
         name: 'Resim',
         selector: row => row.Resim,
     },
+    {
+        name: 'Detay',
+        selector: row => row.Detay,
+    },
+    {
+        name: 'Sil',
+        selector: row => row.Sil,
+    },
 ];
+const customStyles = {
+    rows: {
+        style: {
+            minHeight: '72px', // override the row height
+            textAlign: 'left',
+            padding: "5px"
+
+        },
+    },
+    headCells: {
+        style: {
+            paddingLeft: '8px', // override the cell padding for head cells
+            paddingRight: '8px',
+            textAlign: 'left'
+        },
+    },
+    cells: {
+        style: {
+            padding: '8px', // override the cell padding for data cells
+            textAlign: 'left'
+        },
+    },
+};
 
 // const data = [
 //     {
@@ -39,12 +70,15 @@ const Haberler = () => {
         if (result.hasError) {
             return;
         }
-        console.log(result.data.entities);
+
         setData(result.data.entities.map(item => {
             return {
                 id: item.id,
                 Baslik: <Link href="/"><a>{item.title}</a></Link>,
-                Resim: <Image src={`https://localhost:7227/Images/${item.pictureUrl}`} width={150} height={150} />
+                Resim: <Image src={`https://localhost:7227/Images/${item.pictureUrl}`} layout='fill'
+                    objectFit='contain' />,
+                Detay: <button className="btn btn-warning">Detay</button>,
+                Sil: <button className="btn btn-danger">Sil</button>,
             };
         }));
 
@@ -63,6 +97,7 @@ const Haberler = () => {
                 responsive
                 columns={columns}
                 data={data}
+                customStyles={customStyles}
             /> : <div>Yükleniyor...</div>}
 
 

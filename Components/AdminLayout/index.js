@@ -27,17 +27,21 @@ const AdminLayout = ({ children, activePageName }) => {
                 router.push("/Admin");
             }, 1500);
         }
+
     }, [isLogged])
 
     const VerifyToken = async () => {
+
+        const tokenKey = JSON.parse(localStorage.getItem('tokenKey')) || null;
+        if (tokenKey) {
+            instance.defaults.headers.common['Authorization'] = `Bearer ${tokenKey.token}`;
+        }
         const result = await IsLogged();
-        const tokenKey = localStorage.getItem('tokenKey') != null ? JSON.parse(localStorage.getItem('tokenKey')) : null;
         if (tokenKey == null || (result && !result.isSuccess) || (tokenKey && new Date(tokenKey.expireDate) <= Date.now())) {
             setIsLogged(false);
         }
         else {
             setIsLogged(true);
-            instance.defaults.headers.common['Authorization'] = `Bearer ${tokenKey.token}`;
         }
     }
 
