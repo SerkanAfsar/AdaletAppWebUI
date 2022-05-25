@@ -1,16 +1,17 @@
 import { StatusCodeHelper, instance } from "../Utilities";
 
-export const SaveAllNewsAuto = async () => {
+
+export const RecordAllNewsToDb = async () => {
     return await instance.post(`/News/RecordAllNewsToDb`)
         .then(resp => {
             return {
                 hasError: false,
-                data: resp?.data?.entity
+                data: resp?.data
             }
         }).catch(err => {
             const result = StatusCodeHelper(err);
             return result;
-        });
+        })
 }
 
 export const GetNewsCount = async () => {
@@ -28,6 +29,19 @@ export const GetNewsCount = async () => {
 
 export const GetAllNews = async () => {
     return await instance.get(`/News/GetAllNews`)
+        .then(resp => {
+            return {
+                hasError: false,
+                data: resp?.data
+            }
+        }).catch(err => {
+            const result = StatusCodeHelper(err);
+            return result;
+        })
+}
+
+export const DeleteNewsById = async (id) => {
+    return await instance.delete(`/News/DeleteArticle/${id}`)
         .then(resp => {
             return {
                 hasError: false,

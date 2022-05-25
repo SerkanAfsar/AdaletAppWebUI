@@ -22,22 +22,21 @@ const AdminLayout = ({ children, activePageName }) => {
     useEffect(() => {
         if (isLogged == false) {
             localStorage.removeItem('tokenKey');
-            toast.error("Oturum Süreniz Dolmuştur", { position: "top-right" });
-            setTimeout(() => {
-                router.push("/Admin");
-            }, 1500);
+            // toast.error("Oturum Süreniz Dolmuştur", { position: "top-right" });
+            router.push("/Admin");
         }
-
     }, [isLogged])
 
     const VerifyToken = async () => {
-
         const tokenKey = JSON.parse(localStorage.getItem('tokenKey')) || null;
         if (tokenKey) {
             instance.defaults.headers.common['Authorization'] = `Bearer ${tokenKey.token}`;
         }
+        else {
+            router.push("/Admin");
+        }
         const result = await IsLogged();
-        if (tokenKey == null || (result && !result.isSuccess) || (tokenKey && new Date(tokenKey.expireDate) <= Date.now())) {
+        if ((result && !result.isSuccess) || (new Date(tokenKey.expireDate) <= Date.now())) {
             setIsLogged(false);
         }
         else {

@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import AdminLayout from "../../Components/AdminLayout";
 import styles from './Haberler.module.scss';
 import DataTable from 'react-data-table-component';
-import { GetAllNews } from "../../Crud";
+import { DeleteNewsById, GetAllNews, RecordAllNewsToDb } from "../../Crud";
 import Image from 'next/image';
 import Link from "next/link";
+import NProgress from 'nprogress';
 
 
 const columns = [
@@ -48,22 +49,13 @@ const customStyles = {
         },
     },
 };
-
-// const data = [
-//     {
-//         id: 1,
-//         title: 'Beetlejuice',
-//         year: '1988',
-//     },
-//     {
-//         id: 2,
-//         title: 'Ghostbusters',
-//         year: '1984',
-//     },
-// ]
+let AllData;
 
 const Haberler = () => {
     const [data, setData] = useState(null);
+    const [newsTitle, setNewsTitle] = useState(null);
+    const [busy, setBusy] = useState(false);
+    const [updated, setUpdated] = useState(false);
 
     const getAllNews = async () => {
         const result = await GetAllNews();
@@ -71,25 +63,65 @@ const Haberler = () => {
             return;
         }
 
-        setData(result.data.entities.map(item => {
+        AllData = result.data.entities.map(item => {
             return {
                 id: item.id,
-                Baslik: <Link href="/"><a>{item.title}</a></Link>,
+                Baslik: item.title,
                 Resim: <Image src={`https://localhost:7227/Images/${item.pictureUrl}`} layout='fill'
                     objectFit='contain' />,
                 Detay: <button className="btn btn-warning">Detay</button>,
-                Sil: <button className="btn btn-danger">Sil</button>,
+                Sil: <button className="btn btn-danger" onClick={async () => await HaberSil(item.id)}>Sil</button>,
             };
-        }));
 
+        });
+
+        setData(AllData);
     }
     useEffect(() => {
         getAllNews();
-    }, [])
 
+    }, [updated])
+
+    const handleChange = (title) => {
+        setNewsTitle(title);
+        setData((items) => (title && title != "" && items) ? AllData.filter(a => a.Baslik.toLocaleLowerCase().includes(title.toLocaleLowerCase())) : AllData);
+    }
+
+    const RecordAllAction = async () => {
+        setBusy(true);
+        NProgress.start();
+        const result = await RecordAllNewsToDb();
+        if (result && result.data && result.data.isSuccess) {
+            setUpdated(true);
+        }
+
+        NProgress.done();
+        setBusy(false);
+    }
+
+    const HaberSil = async (id) => {
+        var confirmResult = window.confirm("Haberi Silmek İstediğinizden Emin misiniz?");
+        if (confirmResult) {
+            NProgress.start();
+            const result = await DeleteNewsById(id);
+            console.log(result);
+            if (result && result.data && result.data.isSuccess) {
+                setData((items) => items.filter(a => a.id != id));
+                AllData = AllData.filter(a => a.id != id);
+                NProgress.done();
+            }
+        }
+
+    }
 
     return (
         <AdminLayout activePageName="Haberler">
+            <input type="text" value={newsTitle} style={{ width: "250px" }} onChange={(e) => handleChange(e.target.value)} placeholder="Haber Ara..." className="form-control float-end" />
+            <div className="clearfix"></div>
+            <br />
+            <button className="btn btn-success float-end" disabled={busy} onClick={async () => await RecordAllAction()} style={{ width: "250px" }}>Haberleri Listesini Güncelle</button>
+            <div className="clearfix"></div>
+            <br />
             {data != null ? <DataTable
                 pagination
                 striped
@@ -98,11 +130,16 @@ const Haberler = () => {
                 columns={columns}
                 data={data}
                 customStyles={customStyles}
+            // contextActions={contextActions}
+            // onSelectedRowsChange={handleRowSelected}
+            // clearSelectedRows={toggleCleared}
+
             /> : <div>Yükleniyor...</div>}
 
 
 
         </AdminLayout >
+
     )
 }
 export default Haberler;

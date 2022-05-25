@@ -49,7 +49,7 @@ const AdminEkle = () => {
                     <label htmlFor="exampleInputPassword2">Şifre Tekrar</label>
                     <input type="password" className="form-control" value={rePassword} onChange={(e) => setRepassword(e.target.value)} id="exampleInputPassword2" placeholder="Şifre Tekrar" />
                 </div>
-                <button type="submit" class="btn btn-success float-end">Kaydet</button>
+                <button type="submit" className="btn btn-success float-end">Kaydet</button>
                 <div className="clearfix"></div>
             </form>
         </AdminLayout >
