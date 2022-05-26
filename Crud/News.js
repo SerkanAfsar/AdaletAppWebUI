@@ -52,3 +52,29 @@ export const DeleteNewsById = async (id) => {
             return result;
         })
 }
+
+export const GetNewsById = async (id) => {
+    return await instance.get(`/News/GetNewsById/${id}`)
+        .then(resp => {
+            return {
+                hasError: false,
+                data: resp?.data
+            }
+        }).catch(err => {
+            const result = StatusCodeHelper(err);
+            return result;
+        })
+}
+
+export const UpdateNews = async (id, data) => {
+    return await instance.put(`/News/UpdateArticle/${id}`, data)
+        .then(resp => {
+            return {
+                hasError: false,
+                data: resp?.data
+            }
+        }).catch(err => {
+            const result = StatusCodeHelper(err);
+            return result;
+        })
+}

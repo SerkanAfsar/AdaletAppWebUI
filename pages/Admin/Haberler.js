@@ -51,36 +51,32 @@ const customStyles = {
 };
 let AllData;
 
-const Haberler = () => {
-    const [data, setData] = useState(null);
+const Haberler = ({ result }) => {
+    const [data, setData] = useState();
     const [newsTitle, setNewsTitle] = useState(null);
     const [busy, setBusy] = useState(false);
     const [updated, setUpdated] = useState(false);
 
-    const getAllNews = async () => {
-        const result = await GetAllNews();
-        if (result.hasError) {
-            return;
-        }
 
-        AllData = result.data.entities.map(item => {
+
+
+    useEffect(() => {
+        const arr = result.data.entities.map(item => {
             return {
                 id: item.id,
                 Baslik: item.title,
-                Resim: <Image src={`https://localhost:7227/Images/${item.pictureUrl}`} layout='fill'
+                Resim: <Image src={`${process.env.NEXT_PUBLIC_IMAGE_PATH}/${item.pictureUrl}`} layout='fill'
                     objectFit='contain' />,
-                Detay: <button className="btn btn-warning">Detay</button>,
+                Detay: <Link href={{
+                    pathname: "/Admin/HaberGuncelle",
+                    query: { id: item.id }
+                }} passHref><button className="btn btn-warning">Detay</button></Link>,
                 Sil: <button className="btn btn-danger" onClick={async () => await HaberSil(item.id)}>Sil</button>,
             };
 
         });
-
-        setData(AllData);
-    }
-    useEffect(() => {
-        getAllNews();
-
-    }, [updated])
+        setData(arr);
+    }, [updated]);
 
     const handleChange = (title) => {
         setNewsTitle(title);
@@ -104,10 +100,9 @@ const Haberler = () => {
         if (confirmResult) {
             NProgress.start();
             const result = await DeleteNewsById(id);
-            console.log(result);
             if (result && result.data && result.data.isSuccess) {
                 setData((items) => items.filter(a => a.id != id));
-                AllData = AllData.filter(a => a.id != id);
+
                 NProgress.done();
             }
         }
@@ -130,11 +125,9 @@ const Haberler = () => {
                 columns={columns}
                 data={data}
                 customStyles={customStyles}
-            // contextActions={contextActions}
-            // onSelectedRowsChange={handleRowSelected}
-            // clearSelectedRows={toggleCleared}
-
             /> : <div>Yükleniyor...</div>}
+
+
 
 
 
@@ -142,4 +135,13 @@ const Haberler = () => {
 
     )
 }
+export const getServerSideProps = async () => {
+    const result = await GetAllNews();
+    return {
+        props: {
+            result
+        }
+    }
+}
+
 export default Haberler;
