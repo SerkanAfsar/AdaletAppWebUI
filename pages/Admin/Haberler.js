@@ -49,6 +49,7 @@ const customStyles = {
         },
     },
 };
+
 let AllData;
 
 const Haberler = ({ result }) => {
@@ -56,9 +57,6 @@ const Haberler = ({ result }) => {
     const [newsTitle, setNewsTitle] = useState(null);
     const [busy, setBusy] = useState(false);
     const [updated, setUpdated] = useState(false);
-
-
-
 
     useEffect(() => {
         const arr = result.data.entities.map(item => {
@@ -75,6 +73,7 @@ const Haberler = ({ result }) => {
             };
 
         });
+        AllData = arr;
         setData(arr);
     }, [updated]);
 
@@ -102,7 +101,7 @@ const Haberler = ({ result }) => {
             const result = await DeleteNewsById(id);
             if (result && result.data && result.data.isSuccess) {
                 setData((items) => items.filter(a => a.id != id));
-
+                AllData = AllData.filter(a => a.id != id);
                 NProgress.done();
             }
         }
@@ -126,11 +125,6 @@ const Haberler = ({ result }) => {
                 data={data}
                 customStyles={customStyles}
             /> : <div>Yükleniyor...</div>}
-
-
-
-
-
         </AdminLayout >
 
     )
