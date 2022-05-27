@@ -68,14 +68,8 @@ export const AddCategory = async (data) => {
 }
 
 
-export const UpdateCategory = async (id, category) => {
-    return await instance.put(`/Categories/UpdateCategory/${id}`, {
-        categoryName: category.title,
-        seoTitle: category.seoTitle,
-        seoDescription: category.seoDescription,
-        explanation: category.content
-    }).then(resp => {
-
+export const UpdateCategory = async (id, data) => {
+    return await instance.put(`/Categories/UpdateCategory/${id}`, { data }).then(resp => {
         return {
             hasError: false,
             urlPath: "/Admin/Kategoriler"
