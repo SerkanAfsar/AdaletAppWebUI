@@ -78,3 +78,16 @@ export const UpdateNews = async (id, data) => {
             return result;
         })
 }
+export const AddNews = async (data) => {
+    return await instance.post(`/News/AddArticle`, data)
+        .then(resp => {
+            return {
+                hasError: false,
+                data: resp?.data
+            }
+        }).catch(err => {
+
+            const result = StatusCodeHelper(err);
+            return result;
+        })
+}

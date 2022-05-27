@@ -112,7 +112,7 @@ const HaberGuncelle = ({ result }) => {
                 <div className='clearfix'></div>
             </form>
 
-        </AdminLayout >
+        </AdminLayout>
     );
 }
 
