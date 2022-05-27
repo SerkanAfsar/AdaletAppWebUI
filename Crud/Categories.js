@@ -54,13 +54,8 @@ export const GetCategoryList = async () => {
         })
 }
 
-export const CreateCategory = async ({ title, seoTitle, seoDescription, content }) => {
-    return await instance.post(`/Categories/AddCategory`, {
-        categoryName: title,
-        seoTitle: seoTitle,
-        seoDescription: seoDescription,
-        explanation: content
-    }).then(resp => {
+export const AddCategory = async (data) => {
+    return await instance.post(`/Categories/AddCategory`, data).then(resp => {
         return {
             hasError: false,
             urlPath: "/Admin/Kategoriler"

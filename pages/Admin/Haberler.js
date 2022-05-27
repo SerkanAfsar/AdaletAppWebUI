@@ -89,7 +89,6 @@ const Haberler = ({ result }) => {
         if (result && result.data && result.data.isSuccess) {
             setUpdated(true);
         }
-
         NProgress.done();
         setBusy(false);
     }
