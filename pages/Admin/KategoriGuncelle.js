@@ -1,16 +1,31 @@
 import React, { useState } from "react";
 import AdminLayout from "../../Components/AdminLayout";
-import styles from './KategoriEkle.module.scss';
+import styles from './KategoriGuncelle.module.scss';
 import Editor from "../../Components/Editor";
-import { AddCategory } from "../../Crud";
+import { UpdateCategory, GetCategory } from "../../Crud";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
-
-const KategoriEkle = () => {
+const KategoriGuncelle = ({ result }) => {
     const router = useRouter();
 
-    const [data, setData] = useState({
+    if (result.hasError) {
+        return (
+            <AdminLayout activePageName="Kategori Güncelle">
+                <div class="alert alert-danger" role="alert">
+                    <ul className={styles.listStyle}>
+                        {result.errorList.map((value, index) => (
+                            <li key={index}>
+                                {value}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </AdminLayout>
+        );
+    }
+
+    const [data, setData] = useState((!result.hasError && result.data) && result.data || {
         categoryName: null,
         seoTitle: null,
         seoDescription: null,
@@ -22,7 +37,7 @@ const KategoriEkle = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const result = await AddCategory(data);
+        const result = await UpdateCategory(data.id, data);
 
         if (result?.hasError) {
             result?.errorList.map((err) => {
@@ -31,16 +46,17 @@ const KategoriEkle = () => {
             return;
         }
 
-        toast.success("Kategori Eklendi", { position: "top-right" });
+        toast.success("Kategori Güncellendi", { position: "top-right" });
         router.push(result.urlPath);
 
     }
+
     return (
         <AdminLayout activePageName="Kategori Güncelle">
             <form className={styles.formSubmit} onSubmit={async (e) => await handleSubmit(e)}>
                 <div className="form-group mb-3">
                     <label htmlFor="kategoriAdi">Kategori Adı</label>
-                    <input type="text" value={data.title} onChange={(e) => (setData((item) => ({ ...item, categoryName: e.target.value })))} className="form-control" id="kategoriAdi" placeholder="Kategori Adını Giriniz..." />
+                    <input type="text" value={data.categoryName} onChange={(e) => (setData((item) => ({ ...item, categoryName: e.target.value })))} className="form-control" id="kategoriAdi" placeholder="Kategori Adını Giriniz..." />
                 </div>
                 <div className="form-group mb-3">
                     <label htmlFor="seoTitle">Seo Title</label>
@@ -56,11 +72,11 @@ const KategoriEkle = () => {
                 </div>
                 <div className="form-group mb-3">
                     <label htmlFor="haberIcerik">Kategori İçerik</label>
-                    <Editor value={data.newsContent} setContent={(content) => (setData((item) => ({ ...item, explanation: content })))} />
+                    <Editor value={data.explanation} setContent={(content) => (setData((item) => ({ ...item, explanation: content })))} />
                 </div>
                 <div class="form-check mb-3">
-                    <input value={data.mainPageCategory} onChange={(e) => setData((item) => ({ ...item, mainPageCategory: e.target.checked }))} type="checkbox" class="form-check-input" id="exampleCheck1" />
-                    <label className="form-check-label" htmlFor="exampleCheck1" style={{ paddingTop: "5px", marginLeft: "10px" }}>Ana Sayfa Kategori?</label>
+                    <input defaultChecked={data.mainPageCategory} onChange={(e) => setData((item) => ({ ...item, mainPageCategory: e.target.checked }))} type="checkbox" class="form-check-input" id="exampleCheck1" />
+                    <label class="form-check-label" htmlFor="exampleCheck1" style={{ paddingTop: "5px", marginLeft: "10px" }}>Ana Sayfa Kategori?</label>
                 </div>
                 <div className="form-group mb-3">
                     <button type="submit" className="btn btn-success float-end">Kaydet</button>
@@ -70,4 +86,16 @@ const KategoriEkle = () => {
         </AdminLayout >
     )
 }
-export default KategoriEkle;
+export const getServerSideProps = async (context) => {
+
+    const { id } = context.query;
+    const result = await GetCategory(id);
+
+    return {
+        props: {
+            result
+        }
+    }
+}
+
+export default KategoriGuncelle;
