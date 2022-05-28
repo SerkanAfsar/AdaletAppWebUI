@@ -26,9 +26,12 @@ const Kategoriler = ({ result }) => {
     }
 
     const handleMainPageChange = async (e, item) => {
-        const newData = { ...item, mainPageCategory: e.target.checked, updateDate: new Date().toLocaleDateString() }
-        console.log(newData);
-        const resp = await UpdateCategory(item.id, newData);
+        const resp = await UpdateCategory(item.id, {
+            ...item,
+            mainPageCategory: e.target.checked,
+            updateDate: new Date()
+        });
+        console.log(resp);
         if (resp.hasError) {
             resp.errorList.forEach(element => {
                 toast.error(element, { position: "top-right" });
@@ -36,14 +39,13 @@ const Kategoriler = ({ result }) => {
             return;
         }
         toast.success("İşlem Başarılı", { position: "top-right" });
+
         var index = data.findIndex(a => a.id == item.id);
         const arr = data;
-        arr[index] = newData;
+        arr[index] = { ...item, mainPageCategory: e.target.checked };
         setData(arr);
-        console.log(data);
-
-
     }
+
 
     const deleteCategory = async (id) => {
         var confirmResult = window.confirm("Bu Kategoriyi Silmek İstediğinizden Emin misiniz?");
@@ -56,11 +58,14 @@ const Kategoriler = ({ result }) => {
                 });
             }
             else {
+                toast.success("Kategori Silindi", { position: "top-right" });
                 setData((items) => items.filter(a => a.id != id));
             }
             NProgress.done();
         }
     }
+
+
     return (
         <AdminLayout activePageName="Kategoriler">
             <div className={styles.formSubmit}>
