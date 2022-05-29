@@ -15,34 +15,34 @@ const AdminLayout = ({ children, activePageName }) => {
     const router = useRouter();
     const [isLogged, setIsLogged] = useState(true);
 
-    useEffect(() => {
-        VerifyToken();
-    }, []);
+    // useEffect(() => {
+    //     VerifyToken();
+    // }, []);
 
-    useEffect(() => {
-        if (isLogged == false) {
-            localStorage.removeItem('tokenKey');
-            // toast.error("Oturum Süreniz Dolmuştur", { position: "top-right" });
-            router.push("/Admin");
-        }
-    }, [isLogged])
+    // useEffect(() => {
+    //     if (isLogged == false) {
+    //         localStorage.removeItem('tokenKey');
 
-    const VerifyToken = async () => {
-        const tokenKey = JSON.parse(localStorage.getItem('tokenKey')) || null;
-        if (tokenKey) {
-            instance.defaults.headers.common['Authorization'] = `Bearer ${tokenKey.token}`;
-        }
-        else {
-            router.push("/Admin");
-        }
-        const result = await IsLogged();
-        if ((result && !result.isSuccess) || (new Date(tokenKey.expireDate) <= Date.now())) {
-            setIsLogged(false);
-        }
-        else {
-            setIsLogged(true);
-        }
-    }
+    //         router.push("/Admin");
+    //     }
+    // }, [isLogged])
+
+    // const VerifyToken = async () => {
+    //     const tokenKey = JSON.parse(localStorage.getItem('tokenKey')) || null;
+    //     if (tokenKey) {
+    //         instance.defaults.headers.common['Authorization'] = `Bearer ${tokenKey.token}`;
+    //     }
+    //     else {
+    //         router.push("/Admin");
+    //     }
+    //     const result = await IsLogged();
+    //     if ((result && !result.isSuccess) || (new Date(tokenKey.expireDate) <= Date.now())) {
+    //         setIsLogged(false);
+    //     }
+    //     else {
+    //         setIsLogged(true);
+    //     }
+    // }
 
     return (<>
         <AdminProvider>

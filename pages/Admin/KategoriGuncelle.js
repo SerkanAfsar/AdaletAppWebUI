@@ -38,17 +38,14 @@ const KategoriGuncelle = ({ result }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const result = await UpdateCategory(data.id, data);
-
         if (result?.hasError) {
             result?.errorList.map((err) => {
                 toast.error(err, { position: "top-right" });
             });
             return;
         }
-
         toast.success("Kategori Güncellendi", { position: "top-right" });
         router.push(result.urlPath);
-
     }
 
     return (

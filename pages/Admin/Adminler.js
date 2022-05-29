@@ -4,8 +4,8 @@ import AdminLayout from "../../Components/AdminLayout";
 import { DeleteUser, GetUsersList } from "../../Crud";
 import styles from './Adminler.module.scss';
 
-const Adminler = () => {
-    const [data, setData] = useState(null);
+const Adminler = ({ result }) => {
+    const [data, setData] = useState((result && result.entities || null);
     useEffect(() => {
         loadData();
     }, []);
@@ -59,5 +59,13 @@ const Adminler = () => {
             </div>
         </AdminLayout >
     )
+}
+export const getServerSideProps = async () => {
+    const result = await GetUsersList();
+    return {
+        props: {
+            result
+        }
+    }
 }
 export default Adminler;

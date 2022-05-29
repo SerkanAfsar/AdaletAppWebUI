@@ -36,7 +36,7 @@ const KategoriEkle = () => {
 
     }
     return (
-        <AdminLayout activePageName="Kategori Güncelle">
+        <AdminLayout activePageName="Kategori Ekle">
             <form className={styles.formSubmit} onSubmit={async (e) => await handleSubmit(e)}>
                 <div className="form-group mb-3">
                     <label htmlFor="kategoriAdi">Kategori Adı</label>

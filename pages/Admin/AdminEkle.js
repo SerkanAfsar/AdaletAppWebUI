@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import AdminLayout from "../../Components/AdminLayout";
 import styles from './AdminEkle.module.scss';
-import { CreateUser } from "../../Crud";
+import { CreateUser, GetRolesList } from "../../Crud";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
-const AdminEkle = () => {
+const AdminEkle = ({ rolesResult }) => {
+
+
     const router = useRouter();
 
     const [nameSurname, setNameSurname] = useState(null);
@@ -34,6 +36,17 @@ const AdminEkle = () => {
         <AdminLayout activeLink="adminekle" activePageName="AdminEkle">
             <form onSubmit={async (e) => await AddUser(e)} className={styles.formSubmit}>
                 <div className="form-group mb-3">
+                    <label htmlFor="nameSurname">Rol Tipi</label>
+                    <select className="form-select">
+                        <option value="0">Rol Seçiniz</option>
+                        {(rolesResult && rolesResult.data) && rolesResult.data.entities.map((item) => (
+                            <option key={item.id} value={item.id}>
+                                {item.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div className="form-group mb-3">
                     <label htmlFor="nameSurname">Ad Soyad</label>
                     <input type="text" className="form-control" value={nameSurname} onChange={(e) => setNameSurname(e.target.value)} id="nameSurname" aria-describedby="emailHelp" placeholder="Adınızı Soyadınızı Giriniz.." />
                 </div>
@@ -55,4 +68,13 @@ const AdminEkle = () => {
         </AdminLayout >
     )
 }
+export const getServerSideProps = async () => {
+    const result = await GetRolesList();
+    return {
+        props: {
+            rolesResult: result
+        }
+    }
+}
+
 export default AdminEkle;
