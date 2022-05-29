@@ -5,7 +5,8 @@ import { DeleteUser, GetUsersList } from "../../Crud";
 import styles from './Adminler.module.scss';
 
 const Adminler = ({ result }) => {
-    const [data, setData] = useState((result && result.entities || null);
+    const [data, setData] = useState(result && result.entities || null);
+
     useEffect(() => {
         loadData();
     }, []);
