@@ -2,7 +2,7 @@ import { StatusCodeHelper, instance } from "../Utilities";
 
 
 export const GetCategorySourById = async (id) => {
-    return await instance.get(`/CategorySources/GetCategorySource/${id}`)
+    return await ApiClient().get(`/CategorySources/GetCategorySource/${id}`)
         .then(resp => {
             return {
                 hasError: false,
@@ -18,7 +18,7 @@ export const GetCategorySourById = async (id) => {
 
 
 export const GetCategorySourceListByCategoryId = async (categoryId) => {
-    return await instance.get(`/CategorySources/GetCategorySourceList/${categoryId}`)
+    return await ApiClient().get(`/CategorySources/GetCategorySourceList/${categoryId}`)
         .then(resp => {
             return {
                 hasError: false,

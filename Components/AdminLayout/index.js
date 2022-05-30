@@ -1,50 +1,36 @@
-import React, { useEffect, useState } from "react";
-
+import React from "react";
+import { useSession } from "next-auth/react"
 import { toast, ToastContainer } from 'react-toastify';
-import { useRouter } from "next/router";
-import { instance } from "../../Utilities";
+
 import AdminTopSide from "./AdminTopSide";
 import AdminAside from "./AdminAside";
 import Content from "./Content";
 import { AdminProvider } from "../../Context/AdminContext";
-import { IsLogged } from "../../Crud";
-
-
 
 const AdminLayout = ({ children, activePageName }) => {
-    const router = useRouter();
-    const [isLogged, setIsLogged] = useState(true);
 
-    // useEffect(() => {
-    //     VerifyToken();
-    // }, []);
+    const { data: session, status } = useSession();
+    if (status === "loading") {
+        return (
+            <div style={{ display: "flex", height: "100vh", flex: 1, justifyContent: "center", alignItems: "center" }}>
+                <div class="alert alert-warning" role="alert">
+                    Yükleniyor...
+                </div>
+            </div>
+        )
+    }
 
-    // useEffect(() => {
-    //     if (isLogged == false) {
-    //         localStorage.removeItem('tokenKey');
+    if (status === "unauthenticated") {
+        return (
+            <div style={{ display: "flex", height: "100vh", flex: 1, justifyContent: "center", alignItems: "center" }}>
+                <div class="alert alert-danger" role="alert">
+                    Yetkiniz Bulunmamaktadır...Giriş Başarısız..
+                </div>
+            </div>
+        )
+    }
 
-    //         router.push("/Admin");
-    //     }
-    // }, [isLogged])
-
-    // const VerifyToken = async () => {
-    //     const tokenKey = JSON.parse(localStorage.getItem('tokenKey')) || null;
-    //     if (tokenKey) {
-    //         instance.defaults.headers.common['Authorization'] = `Bearer ${tokenKey.token}`;
-    //     }
-    //     else {
-    //         router.push("/Admin");
-    //     }
-    //     const result = await IsLogged();
-    //     if ((result && !result.isSuccess) || (new Date(tokenKey.expireDate) <= Date.now())) {
-    //         setIsLogged(false);
-    //     }
-    //     else {
-    //         setIsLogged(true);
-    //     }
-    // }
-
-    return (<>
+    return (
         <AdminProvider>
             <AdminTopSide />
             <AdminAside activePageName={activePageName} />
@@ -53,7 +39,6 @@ const AdminLayout = ({ children, activePageName }) => {
             </Content>
             <ToastContainer />
         </AdminProvider>
-    </>
     );
 }
 export default AdminLayout;

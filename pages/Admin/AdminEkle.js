@@ -4,10 +4,11 @@ import styles from './AdminEkle.module.scss';
 import { CreateUser, GetRolesList } from "../../Crud";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { getSession } from "next-auth/react";
 
 const AdminEkle = ({ rolesResult }) => {
 
-
+    console.log(rolesResult);
     const router = useRouter();
 
     const [nameSurname, setNameSurname] = useState(null);
@@ -39,7 +40,7 @@ const AdminEkle = ({ rolesResult }) => {
                     <label htmlFor="nameSurname">Rol Tipi</label>
                     <select className="form-select">
                         <option value="0">Rol Seçiniz</option>
-                        {(rolesResult && rolesResult.data) && rolesResult.data.entities.map((item) => (
+                        {rolesResult && rolesResult.map((item) => (
                             <option key={item.id} value={item.id}>
                                 {item.name}
                             </option>
@@ -68,11 +69,13 @@ const AdminEkle = ({ rolesResult }) => {
         </AdminLayout >
     )
 }
-export const getServerSideProps = async () => {
-    const result = await GetRolesList();
+export const getServerSideProps = async (context) => {
+    const session = await getSession(context);
+    const result = await GetRolesList(session?.jwt);
+
     return {
         props: {
-            rolesResult: result
+            rolesResult: result?.entities
         }
     }
 }

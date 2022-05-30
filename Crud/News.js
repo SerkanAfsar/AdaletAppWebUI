@@ -1,8 +1,8 @@
-import { StatusCodeHelper, instance } from "../Utilities";
+import { StatusCodeHelper, ApiClient } from "../Utilities";
 
 
-export const RecordAllNewsToDb = async () => {
-    return await instance.post(`/News/RecordAllNewsToDb`)
+export const RecordAllNewsToDb = async (tokenKey) => {
+    return await ApiClient(tokenKey).post(`/News/RecordAllNewsToDb`)
         .then(resp => {
             return {
                 hasError: false,
@@ -15,7 +15,7 @@ export const RecordAllNewsToDb = async () => {
 }
 
 export const GetNewsCount = async () => {
-    return await instance.get(`/News/GetNewsCount`)
+    return await ApiClient().get(`/News/GetNewsCount`)
         .then(resp => {
             return {
                 hasError: false,
@@ -28,7 +28,7 @@ export const GetNewsCount = async () => {
 }
 
 export const GetAllNews = async () => {
-    return await instance.get(`/News/GetAllNews`)
+    return await ApiClient().get(`/News/GetAllNews`)
         .then(resp => {
             return {
                 hasError: false,
@@ -40,8 +40,8 @@ export const GetAllNews = async () => {
         })
 }
 
-export const DeleteNewsById = async (id) => {
-    return await instance.delete(`/News/DeleteArticle/${id}`)
+export const DeleteNewsById = async (id, tokenKey) => {
+    return await ApiClient(tokenKey).delete(`/News/DeleteArticle/${id}`)
         .then(resp => {
             return {
                 hasError: false,
@@ -54,7 +54,7 @@ export const DeleteNewsById = async (id) => {
 }
 
 export const GetNewsById = async (id) => {
-    return await instance.get(`/News/GetNewsById/${id}`)
+    return await ApiClient().get(`/News/GetNewsById/${id}`)
         .then(resp => {
             return {
                 hasError: false,
@@ -66,8 +66,8 @@ export const GetNewsById = async (id) => {
         })
 }
 
-export const UpdateNews = async (id, data) => {
-    return await instance.put(`/News/UpdateArticle/${id}`, data)
+export const UpdateNews = async (id, data, tokenKey) => {
+    return await ApiClient(tokenKey).put(`/News/UpdateArticle/${id}`, data)
         .then(resp => {
             return {
                 hasError: false,
@@ -78,8 +78,8 @@ export const UpdateNews = async (id, data) => {
             return result;
         })
 }
-export const AddNews = async (data) => {
-    return await instance.post(`/News/AddArticle`, data)
+export const AddNews = async (data, tokenKey) => {
+    return await ApiClient(tokenKey).post(`/News/AddArticle`, data)
         .then(resp => {
             return {
                 hasError: false,

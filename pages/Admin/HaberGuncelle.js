@@ -6,15 +6,14 @@ import styles from './HaberGuncelle.module.scss';
 import Editor from '../../Components/Editor';
 import { WebSiteList } from '../../Utilities';
 import { toast } from 'react-toastify';
-import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 
 const HaberGuncelle = ({ result }) => {
+    const { data: session } = useSession();
     const router = useRouter();
-
     const [data, setData] = useState((result?.newsResult?.data?.isSuccess && { ...result?.newsResult?.data?.entity, fileInput: null }) || null);
     const [catList, setcatList] = useState(((result?.categoryList && !result.categoryList.hasError) && result.categoryList.data) || null);
     const [sourceList, setSourceList] = useState(WebSiteList || null);
-
 
     if (data == null) {
         return (
@@ -37,14 +36,16 @@ const HaberGuncelle = ({ result }) => {
         formData.set("updateDate", new Date().toLocaleDateString());
         formData.delete("queue");
 
-        const result = await UpdateNews(data.id, formData);
-        if (result?.data?.isSuccess) {
-            toast.success("Haber Güncellendi", { position: "top-right" });
-            router.push("/Admin/Haberler");
+        const updateResult = await UpdateNews(data.id, formData, session?.jwt);
+
+        if (updateResult?.hasError) {
+            updateResult.errorList.forEach(err => {
+                toast.error(err, { position: "top-right" });
+            });
+            return;
         }
-        result?.data?.errorList.map((err) => {
-            toast.error(err, { position: "top-right" });
-        });
+
+        router.push("/Admin/Haberler");
     }
 
     const setFile = (e) => {
@@ -120,7 +121,6 @@ export const getServerSideProps = async (context) => {
     const { id } = context.query;
     const newsResult = await GetNewsById(id);
     const categoryList = await GetCategoryList();
-
 
     return {
         props: {

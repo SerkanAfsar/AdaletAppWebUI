@@ -1,11 +1,10 @@
-import axios from "axios";
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
-import { instance } from "../../../Utilities";
+import { defaultInstace } from "../../../Utilities";
 
 export default NextAuth({
     pages: {
-
+        signIn: "/Admin"
     },
     providers: [
         CredentialsProvider({
@@ -16,7 +15,7 @@ export default NextAuth({
             },
             async authorize(credentials, req) {
 
-                const result = await instance.post(`${process.env.NEXT_PUBLIC_API_URL}/Login/Login`, {
+                const result = await defaultInstace.post(`${process.env.NEXT_PUBLIC_API_URL}/Login/Login`, {
                     eMail: credentials.username,
                     password: credentials.password,
                     rePassword: credentials.password,
@@ -27,47 +26,34 @@ export default NextAuth({
                     return null;
                 });
 
-
-
-
-                if (result) {
-                    return result;
-                }
-
-                return null;
-                // Return null if user data could not be retrieved
+                return result;
 
             }
         })
     ],
+
     session: {
-        jwt: true,
+        strategy: "jwt",
     },
-    jwt: {
-
-        signingKey: process.env.NEXTAUTH_JWT_SIGNING_SECRET,
-    },
+    secret: process.env.NEXT_PUBLIC_NEXTAUTH_JWT_SIGNING_SECRET,
     callbacks: {
-        async redirect({ url, baseUrl }) {
-            return "/Admin/Dashboard"
-        },
+        // async redirect({ url, baseUrl }) {
+        //     return "/Admin/Dashboard";
+        // },
         async jwt({ token, user, account, profile, isNewUser }) {
-
             if (user) {
-                token.jwt = user.token || token.token;
-                token.email = user.eMail || token.token;
-                token.nameSurname = user.nameSurname || token.nameSurname;
-                console.log("Token 1 is", token);
-                return token;
+                token.jwt = user.token;
+                token.email = user.eMail;
+                token.nameSurname = user.nameSurname;
             }
-            return token;
-
+            return Promise.resolve(token);
         },
         async session({ session, token, user }) {
             session.jwt = token.jwt;
-            session.email = token.eMail;
+            session.email = token.email;
             session.nameSurname = token.nameSurname;
-            return session
+
+            return Promise.resolve(session);
         }
     }
 });

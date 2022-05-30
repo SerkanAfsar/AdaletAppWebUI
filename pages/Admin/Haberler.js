@@ -6,6 +6,8 @@ import { DeleteNewsById, GetAllNews, RecordAllNewsToDb } from "../../Crud";
 import Image from 'next/image';
 import Link from "next/link";
 import NProgress from 'nprogress';
+import { useSession } from "next-auth/react";
+import { toast } from "react-toastify";
 
 
 const columns = [
@@ -53,6 +55,8 @@ const customStyles = {
 let AllData;
 
 const Haberler = ({ result }) => {
+    const { data: session } = useSession();
+
     const [data, setData] = useState();
     const [newsTitle, setNewsTitle] = useState(null);
     const [busy, setBusy] = useState(false);
@@ -97,14 +101,19 @@ const Haberler = ({ result }) => {
         var confirmResult = window.confirm("Haberi Silmek İstediğinizden Emin misiniz?");
         if (confirmResult) {
             NProgress.start();
-            const result = await DeleteNewsById(id);
-            if (result && result.data && result.data.isSuccess) {
+            const result = await DeleteNewsById(id, session?.jwt);
+            if (result && result.hasError) {
+                result.errorList.forEach(err => {
+                    toast.error(err, { position: "top-right" });
+                });
+                return;
+            }
+            if (result && result.data.isSuccess) {
                 setData((items) => items.filter(a => a.id != id));
                 AllData = AllData.filter(a => a.id != id);
                 NProgress.done();
             }
         }
-
     }
 
     return (

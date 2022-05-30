@@ -6,18 +6,21 @@ import { toast } from 'react-toastify';
 import { GetCategoryList, AddNews } from '../../Crud';
 import Editor from "../../Components/Editor";
 import { useRouter } from "next/router";
+import { getSession, useSession } from "next-auth/react";
 
 
 
 const HaberEkle = ({ result }) => {
     const router = useRouter();
 
+    const { data: session } = useSession();
+
     const [data, setData] = useState({
-        title: null,
-        subTitle: null,
+        title: "",
+        subTitle: "",
         fileInput: null,
-        newsContent: null,
-        categoryId: null,
+        newsContent: "",
+        categoryId: 0,
         sourceUrl: null,
         source: 1
     });
@@ -25,22 +28,23 @@ const HaberEkle = ({ result }) => {
     const [catList, setcatList] = useState(((result?.categoryList && !result.categoryList.hasError) && result.categoryList.data) || null);
 
     const handleSubmit = async (e) => {
-
         e.preventDefault();
         const formData = new FormData();
-
         for (let item in data) {
             formData.append(item, data[item]);
         }
-
-        const result = await AddNews(formData);
-        if (result?.data?.isSuccess) {
-            toast.success("Haber Eklendi", { position: "top-right" });
-            router.push("/Admin/Haberler");
+        const responseResult = await AddNews(formData, session?.jwt);
+        console.log(responseResult);
+        if (responseResult?.hasError) {
+            responseResult.errorList.forEach(err => {
+                toast.error(err, { position: "top-right" });
+            });
+            return;
         }
-        result?.data?.errorList.map((err) => {
-            toast.error(err, { position: "top-right" });
-        });
+        toast.success("Haber Eklendi", { position: "top-right" });
+        router.push("/Admin/Haberler");
+
+
     }
 
     const setFile = (e) => {
@@ -83,7 +87,6 @@ const HaberEkle = ({ result }) => {
                         ))}
                     </select>
                 </div>
-
                 <div className="form-group mb-3">
                     <label htmlFor="kaynakUrl">Kaynak Url</label>
                     <input type="text"
@@ -111,8 +114,8 @@ const HaberEkle = ({ result }) => {
     );
 }
 export const getServerSideProps = async (context) => {
-
-    const categoryList = await GetCategoryList();
+    const session = await getSession(context);
+    const categoryList = await GetCategoryList(session?.jwt);
     return {
         props: {
             result: {

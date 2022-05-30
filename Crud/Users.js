@@ -1,7 +1,7 @@
-import { StatusCodeHelper, instance } from "../Utilities";
+import { StatusCodeHelper, ApiClient } from "../Utilities";
 
 export const CreateUser = async ({ nameSurname, eMail, password, rePassword }) => {
-    return await instance.post(`/Login/CreateUser`, {
+    return await ApiClient().post(`/Login/CreateUser`, {
         nameSurname,
         eMail,
         password,
@@ -17,7 +17,7 @@ export const CreateUser = async ({ nameSurname, eMail, password, rePassword }) =
     });
 }
 export const LoginUser = async ({ eMail, password }) => {
-    return await instance.post(`/Login/Login`, {
+    return await ApiClient().post(`/Login/Login`, {
         eMail,
         password,
         rePassword: password
@@ -28,8 +28,8 @@ export const LoginUser = async ({ eMail, password }) => {
         return result;
     });
 }
-export const GetUsersList = async () => {
-    return await instance.get(`/Users/GetUserList`).then(resp => {
+export const GetUsersList = async (tokenKey) => {
+    return await ApiClient(tokenKey).get(`/Users/GetUserList`).then(resp => {
         return resp.data;
     }).catch((err) => {
         const result = StatusCodeHelper(err);
@@ -37,17 +37,8 @@ export const GetUsersList = async () => {
     });
 }
 
-export const DeleteUser = async ({ userId }) => {
-    return await instance.delete(`/Users/DeleteUser/${userId}`).then(resp => {
-        return resp.data;
-    }).catch((err) => {
-        const result = StatusCodeHelper(err);
-        return result;
-    });
-}
-export const IsLogged = async () => {
-    return await instance.get(`/Users/IsLogged`).then(resp => {
-
+export const DeleteUser = async (userId, tokenKey) => {
+    return await ApiClient(tokenKey).delete(`/Users/DeleteUser/${userId}`).then(resp => {
         return resp.data;
     }).catch((err) => {
         const result = StatusCodeHelper(err);

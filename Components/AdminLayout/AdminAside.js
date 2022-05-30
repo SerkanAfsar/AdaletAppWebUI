@@ -3,6 +3,7 @@ import styles from './AdminAside.module.scss';
 import Link from "next/link";
 import { AdminContext } from "../../Context/AdminContext";
 import { useRouter } from 'next/router';
+import { signOut } from "next-auth/react"
 
 const AdminAside = ({ activePageName }) => {
 
@@ -75,11 +76,9 @@ const AdminAside = ({ activePageName }) => {
                         </a>
                     </Link>
                 </li>
+
                 <li>
-                    <a href="#" onClick={() => {
-                        localStorage.removeItem('tokenKey');
-                        router.push("/Admin");
-                    }}>
+                    <a href="#" onClick={() => signOut({ callbackUrl: "/Admin" })}>
                         <i className="bi bi-x-octagon-fill"></i>
                         <span>Güvenli Çıkış</span>
                     </a>

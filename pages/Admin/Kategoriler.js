@@ -5,9 +5,12 @@ import { DeleteCategory, GetCategoryList, UpdateCategory } from "../../Crud";
 import Link from "next/link";
 import NProgress from 'nprogress';
 import { toast } from "react-toastify";
+import { useSession } from "next-auth/react";
 
 
 const Kategoriler = ({ result }) => {
+    const { data: session } = useSession();
+
     const [data, setData] = useState((result && result.data) && result.data || null);
     if (result.hasError) {
         return (
@@ -30,7 +33,7 @@ const Kategoriler = ({ result }) => {
             ...item,
             mainPageCategory: e.target.checked,
             updateDate: new Date()
-        });
+        }, session?.jwt);
         console.log(resp);
         if (resp.hasError) {
             resp.errorList.forEach(element => {
@@ -51,7 +54,7 @@ const Kategoriler = ({ result }) => {
         var confirmResult = window.confirm("Bu Kategoriyi Silmek İstediğinizden Emin misiniz?");
         if (confirmResult) {
             NProgress.start();
-            const response = await DeleteCategory(id);
+            const response = await DeleteCategory(id, session?.jwt);
             if (response.hasError) {
                 response.errorList.forEach(element => {
                     toast.error(element, { position: "top-right" });
@@ -99,7 +102,8 @@ const Kategoriler = ({ result }) => {
         </AdminLayout >
     )
 }
-export const getServerSideProps = async () => {
+export const getServerSideProps = async (context) => {
+
     const result = await GetCategoryList();
     return {
         props: {

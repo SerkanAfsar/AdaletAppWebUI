@@ -5,8 +5,10 @@ import Editor from "../../Components/Editor";
 import { UpdateCategory, GetCategory } from "../../Crud";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 const KategoriGuncelle = ({ result }) => {
+    const { data: session } = useSession();
     const router = useRouter();
 
     if (result.hasError) {
@@ -37,7 +39,7 @@ const KategoriGuncelle = ({ result }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const result = await UpdateCategory(data.id, data);
+        const result = await UpdateCategory(data.id, data, session?.jwt);
         if (result?.hasError) {
             result?.errorList.map((err) => {
                 toast.error(err, { position: "top-right" });
@@ -84,10 +86,8 @@ const KategoriGuncelle = ({ result }) => {
     )
 }
 export const getServerSideProps = async (context) => {
-
     const { id } = context.query;
     const result = await GetCategory(id);
-
     return {
         props: {
             result

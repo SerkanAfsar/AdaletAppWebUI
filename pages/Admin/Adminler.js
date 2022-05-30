@@ -3,23 +3,14 @@ import { toast } from "react-toastify";
 import AdminLayout from "../../Components/AdminLayout";
 import { DeleteUser, GetUsersList } from "../../Crud";
 import styles from './Adminler.module.scss';
+import { getSession, useSession } from "next-auth/react";
 
 const Adminler = ({ result }) => {
+    const { data: session } = useSession();
     const [data, setData] = useState(result && result.entities || null);
 
-    useEffect(() => {
-        loadData();
-    }, []);
-
-    const loadData = async () => {
-        const result = await GetUsersList();
-        if (result.hasError) {
-            return
-        }
-        setData(result.entities);
-    }
     const deleteUser = async (userId) => {
-        const result = await DeleteUser({ userId });
+        const result = await DeleteUser(userId, session?.jwt);
         if (result && result.hasError) {
             result.errorList.forEach(element => {
                 toast.error(element, { position: "top-right" })
@@ -61,8 +52,9 @@ const Adminler = ({ result }) => {
         </AdminLayout >
     )
 }
-export const getServerSideProps = async () => {
-    const result = await GetUsersList();
+export const getServerSideProps = async (context) => {
+    const session = await getSession(context);
+    const result = await GetUsersList(session?.jwt);
     return {
         props: {
             result

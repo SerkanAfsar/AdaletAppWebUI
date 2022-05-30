@@ -5,11 +5,13 @@ import Editor from "../../Components/Editor";
 import { AddCategory } from "../../Crud";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 
 const KategoriEkle = () => {
-    const router = useRouter();
 
+    const router = useRouter();
+    const { data: session } = useSession();
     const [data, setData] = useState({
         categoryName: null,
         seoTitle: null,
@@ -17,13 +19,11 @@ const KategoriEkle = () => {
         seoKeywords: null,
         explanation: null,
         mainPageCategory: false
-
     });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const result = await AddCategory(data);
-
+        const result = await AddCategory(data, session?.jwt);
         if (result?.hasError) {
             result?.errorList.map((err) => {
                 toast.error(err, { position: "top-right" });

@@ -1,7 +1,7 @@
-import { StatusCodeHelper, instance } from "../Utilities";
+import { StatusCodeHelper, ApiClient } from "../Utilities";
 
 export const GetCategory = async (id) => {
-    return await instance.get(`/Categories/GetCategory/${id}`)
+    return await ApiClient().get(`/Categories/GetCategory/${id}`)
         .then(resp => {
             return {
                 hasError: false,
@@ -14,7 +14,7 @@ export const GetCategory = async (id) => {
 }
 
 export const GetCategoryCount = async () => {
-    return await instance.get(`/Categories/GetCategoryCount`)
+    return await ApiClient().get(`/Categories/GetCategoryCount`)
         .then(resp => {
             return {
                 hasError: false,
@@ -26,8 +26,8 @@ export const GetCategoryCount = async () => {
         });
 }
 
-export const GetCategoryWithCategorySourceList = async (id) => {
-    return await instance.get(`/Categories/GetCategoryWithCategorySourceList/${id}`)
+export const GetCategoryWithCategorySourceList = async (id, tokenKey) => {
+    return await ApiClient(tokenKey).get(`/Categories/GetCategoryWithCategorySourceList/${id}`)
         .then(resp => {
             return {
                 hasError: false,
@@ -40,7 +40,7 @@ export const GetCategoryWithCategorySourceList = async (id) => {
 }
 
 export const GetCategoryList = async () => {
-    return await instance.get(`/Categories/GetCategoryList`)
+    return await ApiClient().get(`/Categories/GetCategoryList`)
         .then(resp => {
             return {
                 hasError: false,
@@ -54,8 +54,8 @@ export const GetCategoryList = async () => {
         })
 }
 
-export const AddCategory = async (data) => {
-    return await instance.post(`/Categories/AddCategory`, data).then(resp => {
+export const AddCategory = async (data, tokenKey) => {
+    return await ApiClient(tokenKey).post(`/Categories/AddCategory`, data).then(resp => {
         return {
             hasError: false,
             urlPath: "/Admin/Kategoriler"
@@ -68,9 +68,8 @@ export const AddCategory = async (data) => {
 }
 
 
-export const UpdateCategory = async (id, data) => {
-
-    return await instance.put(`/Categories/UpdateCategory/${id}`, data).then(resp => {
+export const UpdateCategory = async (id, data, tokenKey) => {
+    return await ApiClient(tokenKey).put(`/Categories/UpdateCategory/${id}`, data).then(resp => {
         return {
             hasError: false,
             urlPath: "/Admin/Kategoriler"
@@ -82,8 +81,8 @@ export const UpdateCategory = async (id, data) => {
     })
 }
 
-export const DeleteCategory = async (id) => {
-    return instance.delete(`/Categories/DeleteCategory/${id}`)
+export const DeleteCategory = async (id, tokenKey) => {
+    return ApiClient(tokenKey).delete(`/Categories/DeleteCategory/${id}`)
         .then(resp => {
             return {
                 hasError: false,
