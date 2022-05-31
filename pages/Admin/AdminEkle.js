@@ -4,32 +4,33 @@ import styles from './AdminEkle.module.scss';
 import { CreateUser, GetRolesList } from "../../Crud";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
-import { getSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 
 const AdminEkle = ({ rolesResult }) => {
+    const { data: session } = useSession();
 
-    console.log(rolesResult);
     const router = useRouter();
+    const [val, setVal] = useState({
+        nameSurname: "",
+        eMail: "",
+        password: "",
+        roleName: "",
+        rePassword: ""
+    })
 
-    const [nameSurname, setNameSurname] = useState(null);
-    const [eMail, setEmail] = useState(null);
-    const [password, setPassword] = useState(null);
-    const [rePassword, setRepassword] = useState(null);
+
 
     const AddUser = async (e) => {
         e.preventDefault();
-        const result = await CreateUser({ nameSurname, eMail, password, rePassword });
-        if (result.hasError && result.hasError == true) {
+        const result = await CreateUser(val, session?.jwt);
+        if (result?.hasError) {
             result.errorList.forEach(element => {
                 toast.error(element, { position: "top-right" });
             });
             return;
         }
+        e.target.reset();
         toast.success(result.data, { position: "top-right" });
-        setNameSurname(null);
-        setEmail(null);
-        setPassword(null);
-        setRepassword(null);
         router.push("/Admin/Adminler");
     }
 
@@ -38,10 +39,10 @@ const AdminEkle = ({ rolesResult }) => {
             <form onSubmit={async (e) => await AddUser(e)} className={styles.formSubmit}>
                 <div className="form-group mb-3">
                     <label htmlFor="nameSurname">Rol Tipi</label>
-                    <select className="form-select">
-                        <option value="0">Rol Seçiniz</option>
+                    <select className="form-select" value={val.roleName} onChange={(e) => setVal({ ...val, roleName: e.target.value })}>
+                        <option value="">Rol Seçiniz</option>
                         {rolesResult && rolesResult.map((item) => (
-                            <option key={item.id} value={item.id}>
+                            <option key={item.name} value={item.name}>
                                 {item.name}
                             </option>
                         ))}
@@ -49,30 +50,29 @@ const AdminEkle = ({ rolesResult }) => {
                 </div>
                 <div className="form-group mb-3">
                     <label htmlFor="nameSurname">Ad Soyad</label>
-                    <input type="text" className="form-control" value={nameSurname} onChange={(e) => setNameSurname(e.target.value)} id="nameSurname" aria-describedby="emailHelp" placeholder="Adınızı Soyadınızı Giriniz.." />
+                    <input type="text" className="form-control" value={val.nameSurname} onChange={(e) => setVal({ ...val, nameSurname: e.target.value })} id="nameSurname" aria-describedby="emailHelp" placeholder="Adınızı Soyadınızı Giriniz.." />
                 </div>
                 <div className="form-group mb-3">
                     <label htmlFor="exampleInputEmail1">E-Posta Adresi</label>
-                    <input type="email" className="form-control" value={eMail} onChange={(e) => setEmail(e.target.value)} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="E-Posta Adresinizi Giriniz.." />
+                    <input type="email" className="form-control" value={val.eMail} onChange={(e) => setVal({ ...val, eMail: e.target.value })} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="E-Posta Adresinizi Giriniz.." />
                 </div>
                 <div className="form-group mb-3">
                     <label htmlFor="exampleInputPassword1">Şifreniz</label>
-                    <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} id="exampleInputPassword1" placeholder="Şifreniz" />
+                    <input type="password" className="form-control" value={val.password} onChange={(e) => setVal({ ...val, password: e.target.value })} id="exampleInputPassword1" placeholder="Şifreniz" />
                 </div>
                 <div className="form-group mb-3">
                     <label htmlFor="exampleInputPassword2">Şifre Tekrar</label>
-                    <input type="password" className="form-control" value={rePassword} onChange={(e) => setRepassword(e.target.value)} id="exampleInputPassword2" placeholder="Şifre Tekrar" />
+                    <input type="password" className="form-control" value={val.rePassword} onChange={(e) => setVal({ ...val, rePassword: e.target.value })} id="exampleInputPassword2" placeholder="Şifre Tekrar" />
                 </div>
                 <button type="submit" className="btn btn-success float-end">Kaydet</button>
                 <div className="clearfix"></div>
             </form>
         </AdminLayout >
-    )
+    );
 }
 export const getServerSideProps = async (context) => {
     const session = await getSession(context);
     const result = await GetRolesList(session?.jwt);
-
     return {
         props: {
             rolesResult: result?.entities

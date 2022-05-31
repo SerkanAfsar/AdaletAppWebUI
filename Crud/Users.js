@@ -1,12 +1,7 @@
 import { StatusCodeHelper, ApiClient } from "../Utilities";
 
-export const CreateUser = async ({ nameSurname, eMail, password, rePassword }) => {
-    return await ApiClient().post(`/Login/CreateUser`, {
-        nameSurname,
-        eMail,
-        password,
-        rePassword
-    }).then(resp => {
+export const CreateUser = async (data, tokenKey) => {
+    return await ApiClient(tokenKey).post(`/Login/CreateUser`, data).then(resp => {
         return {
             hasError: false,
             data: resp?.data
