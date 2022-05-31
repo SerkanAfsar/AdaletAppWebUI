@@ -3,10 +3,10 @@ import styles from './AdminAside.module.scss';
 import Link from "next/link";
 import { AdminContext } from "../../Context/AdminContext";
 import { useRouter } from 'next/router';
-import { signOut } from "next-auth/react"
+import { signOut, useSession } from "next-auth/react"
 
 const AdminAside = ({ activePageName }) => {
-
+    const { data: session } = useSession();
     const router = useRouter();
     const { closed } = useContext(AdminContext);
 
@@ -16,7 +16,7 @@ const AdminAside = ({ activePageName }) => {
                 Admin Panel Yönetim
             </div>
             <div className={styles.subInfo}>
-                Serkan Afşar.
+                {session?.nameSurname}
 
             </div>
             <ul>

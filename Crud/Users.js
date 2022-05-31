@@ -6,7 +6,7 @@ export const CreateUser = async (data, tokenKey) => {
             hasError: false,
             data: resp?.data
         }
-    }).catch((err) => {
+    }).catch(err => {
         const result = StatusCodeHelper(err);
         return result;
     });

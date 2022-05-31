@@ -1,4 +1,4 @@
-import { AUTH_ERROR_MESSAGE } from "./MessageList"
+import { AUTH_ERROR_MESSAGE, AUTH_FORBIDDEN_MESSAGE, CUSTOM_ERROR_MESSAGE } from "./MessageList"
 
 export const StatusCodeHelper = (err) => {
     if (err.response) {
@@ -6,21 +6,24 @@ export const StatusCodeHelper = (err) => {
             case 401: {
                 return {
                     hasError: true,
-                    urlPath: "/Admin",
                     errorList: [AUTH_ERROR_MESSAGE]
+                }
+            }
+            case 403: {
+                return {
+                    hasError: true,
+                    errorList: [AUTH_FORBIDDEN_MESSAGE]
                 }
             }
             case 400: {
                 return {
                     hasError: true,
-                    urlPath: null,
                     errorList: err.response.data.errorList
                 }
             }
             default: {
                 return {
                     hasError: true,
-                    urlPath: null,
                     errorList: err.response.data.errorList
                 }
             }
@@ -29,7 +32,6 @@ export const StatusCodeHelper = (err) => {
 
     return {
         hasError: true,
-        urlPath: "/Admin",
-        errorList: [AUTH_ERROR_MESSAGE]
+        errorList: [CUSTOM_ERROR_MESSAGE]
     }
 }

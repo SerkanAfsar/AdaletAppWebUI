@@ -4,10 +4,20 @@ import AdminLayout from "../../Components/AdminLayout";
 import { DeleteUser, GetUsersList } from "../../Crud";
 import styles from './Adminler.module.scss';
 import { getSession, useSession } from "next-auth/react";
+import ErrorComponent from "../../Components/Admin/ErrorComponent";
 
 const Adminler = ({ result }) => {
     const { data: session } = useSession();
-    const [data, setData] = useState(result && result.entities || null);
+    const [data, setData] = useState((result && result.entities) && result.entities || result);
+    if (data.hasError) {
+        return (
+            <AdminLayout activePageName="Adminler">
+                {data.hasError && (
+                    <ErrorComponent errors={data.errorList} />
+                )}
+            </AdminLayout>
+        );
+    }
 
     const deleteUser = async (userId) => {
         const result = await DeleteUser(userId, session?.jwt);
@@ -24,11 +34,12 @@ const Adminler = ({ result }) => {
     return (
         <AdminLayout activePageName="Adminler">
             <div className={styles.formSubmit}>
-                <table className="table table-dark table-striped text-left align-middle">
+                <table className="table table-dark table-striped text-left align-middle rounded">
                     <thead>
                         <tr>
                             <th scope="col">Ad Soyad</th>
                             <th scope="col">E-Posta</th>
+                            <th scope="col">Rolü</th>
                             <th scope="col">Detay</th>
                             <th scope="col">Sil</th>
                         </tr>
@@ -38,6 +49,7 @@ const Adminler = ({ result }) => {
                             <tr key={item.id}>
                                 <td>{item.nameSurname}</td>
                                 <td>{item.userName}</td>
+                                <td>Rol Gelicek</td>
                                 <td>
                                     <button type="button" className="btn btn-warning">Detay</button>
                                 </td>
@@ -55,6 +67,7 @@ const Adminler = ({ result }) => {
 export const getServerSideProps = async (context) => {
     const session = await getSession(context);
     const result = await GetUsersList(session?.jwt);
+    console.log(result);
     return {
         props: {
             result

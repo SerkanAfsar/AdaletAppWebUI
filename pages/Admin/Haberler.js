@@ -56,7 +56,6 @@ let AllData;
 
 const Haberler = ({ result }) => {
     const { data: session } = useSession();
-
     const [data, setData] = useState();
     const [newsTitle, setNewsTitle] = useState(null);
     const [busy, setBusy] = useState(false);
@@ -89,10 +88,15 @@ const Haberler = ({ result }) => {
     const RecordAllAction = async () => {
         setBusy(true);
         NProgress.start();
-        const result = await RecordAllNewsToDb();
-        if (result && result.data && result.data.isSuccess) {
-            setUpdated(true);
+        const result = await RecordAllNewsToDb(session?.jwt);
+        if (result?.hasError) {
+            result.errorList.forEach(err => {
+                toast.error(err, { position: "top-right" });
+            });
+            return;
         }
+
+        setUpdated(true);
         NProgress.done();
         setBusy(false);
     }

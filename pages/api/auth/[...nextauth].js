@@ -23,6 +23,7 @@ export default NextAuth({
 
                     return data?.data?.entity;
                 }).catch((err) => {
+
                     return null;
                 });
 
