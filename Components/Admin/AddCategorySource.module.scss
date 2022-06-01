@@ -1,0 +1,22 @@
+.formSubmit {
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    background-color: #f5f5f5;
+    label {
+        font-weight: bold;
+        font-size: 15px;
+    }
+    input,
+    select {
+        margin-top: 10px;
+        font-size: 14px;
+        padding: 10px;
+    }
+    button {
+        float: right;
+        margin-top: 10px;
+        display: block;
+    }
+}

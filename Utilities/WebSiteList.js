@@ -2,7 +2,7 @@ export const WebSiteList = [
 
     {
         id: 1,
-        SiteName: "HUKUK HABERLERİ",
+        SiteName: "HUKUKİ HABER",
     },
     {
         id: 2,

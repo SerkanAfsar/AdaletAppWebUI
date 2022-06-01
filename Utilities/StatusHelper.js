@@ -32,6 +32,6 @@ export const StatusCodeHelper = (err) => {
 
     return {
         hasError: true,
-        errorList: [CUSTOM_ERROR_MESSAGE]
+        errorList: err.message
     }
 }

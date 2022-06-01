@@ -77,6 +77,7 @@ const Kategoriler = ({ result }) => {
                         <tr>
                             <th scope="col">Kategori Adı</th>
                             <th scope="col">Anasayfa Kategori?</th>
+                            <th scope="col">Url Listesi</th>
                             <th scope="col">Detay</th>
                             <th scope="col">Sil</th>
                         </tr>
@@ -86,6 +87,11 @@ const Kategoriler = ({ result }) => {
                             <tr key={item.id}>
                                 <td>{item.categoryName}</td>
                                 <td><input type="checkbox" defaultChecked={item.mainPageCategory} className={`form-check-input ${styles.chk}`} onChange={async (e) => await handleMainPageChange(e, item)} /></td>
+                                <td>
+                                    <Link passHref href={{ pathname: "/Admin/KategoriUrlListesi", query: { id: item.id } }}>
+                                        <button type="button" className="btn btn-primary">Kategori Url Listesi</button>
+                                    </Link>
+                                </td>
                                 <td>
                                     <Link passHref href={{ pathname: "/Admin/KategoriGuncelle", query: { id: item.id } }}>
                                         <button type="button" className="btn btn-warning">Detay</button>
