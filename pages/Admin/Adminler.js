@@ -67,7 +67,7 @@ const Adminler = ({ result }) => {
 export const getServerSideProps = async (context) => {
     const session = await getSession(context);
     const result = await GetUsersList(session?.jwt);
-    console.log(result);
+
     return {
         props: {
             result
