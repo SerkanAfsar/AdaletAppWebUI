@@ -54,7 +54,7 @@ const customStyles = {
 
 let AllData;
 
-const Haberler = ({ result }) => {
+const Haberler = () => {
     const { data: session } = useSession();
     const [data, setData] = useState();
     const [newsTitle, setNewsTitle] = useState(null);
@@ -62,6 +62,11 @@ const Haberler = ({ result }) => {
     const [updated, setUpdated] = useState(false);
 
     useEffect(() => {
+        fetchData();
+    }, [updated]);
+
+    const fetchData = async () => {
+        const result = await GetAllNews();
         const arr = result.data.entities.map(item => {
             return {
                 id: item.id,
@@ -78,7 +83,7 @@ const Haberler = ({ result }) => {
         });
         AllData = arr;
         setData(arr);
-    }, [updated]);
+    }
 
     const handleChange = (title) => {
         setNewsTitle(title);
@@ -141,13 +146,13 @@ const Haberler = ({ result }) => {
 
     )
 }
-export const getServerSideProps = async () => {
-    const result = await GetAllNews();
-    return {
-        props: {
-            result
-        }
-    }
-}
+// export const getServerSideProps = async () => {
+//     const result = await GetAllNews();
+//     return {
+//         props: {
+//             result
+//         }
+//     }
+// }
 
 export default Haberler;
