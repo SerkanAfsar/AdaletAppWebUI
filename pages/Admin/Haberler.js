@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AdminLayout from "../../Components/AdminLayout";
 import styles from './Haberler.module.scss';
-import DataTable from 'react-data-table-component';
+import { MDBDataTable } from 'mdbreact';
 import { DeleteNewsById, GetAllNews, RecordAllNewsToDb } from "../../Crud";
 import Image from 'next/image';
 import Link from "next/link";
@@ -53,41 +53,46 @@ const customStyles = {
 
 let AllData;
 
-const Haberler = () => {
+const Haberler = ({ result }) => {
+
+    const data = {
+        columns: [
+            {
+                label: 'Haber Başlık',
+                field: 'HaberBaslik',
+                sort: 'asc'
+
+            },
+            {
+                label: 'Detay',
+                field: 'detay',
+                sort: 'asc'
+
+            },
+            {
+                label: 'Sil',
+                field: 'sil',
+                sort: 'asc'
+            },
+        ],
+        rows: result?.data?.entities?.map((item) => {
+            const response = {
+                HaberBaslik: "" + item.title + "",
+                detay: <button className="btn btn-primary">Detay</button>,
+                sil: <button className="btn btn-danger">Sil</button>
+            };
+            return response;
+        })
+    };
+
     const { data: session } = useSession();
-    const [data, setData] = useState();
     const [newsTitle, setNewsTitle] = useState(null);
     const [busy, setBusy] = useState(false);
     const [updated, setUpdated] = useState(false);
 
     useEffect(() => {
-        fetchData();
+        // fetchData();
     }, [updated]);
-
-    const fetchData = async () => {
-        const result = await GetAllNews();
-        const arr = result.data.entities.map(item => {
-            return {
-                id: item.id,
-                Baslik: item.title,
-                Resim: <Image src={`${process.env.NEXT_PUBLIC_IMAGE_PATH}/${item.pictureUrl}`} layout='fill'
-                    objectFit='contain' />,
-                Detay: <Link href={{
-                    pathname: "/Admin/HaberGuncelle",
-                    query: { id: item.id }
-                }} passHref><button className="btn btn-warning">Detay</button></Link>,
-                Sil: <button className="btn btn-danger" onClick={async () => await HaberSil(item.id)}>Sil</button>,
-            };
-
-        });
-        AllData = arr;
-        setData(arr);
-    }
-
-    const handleChange = (title) => {
-        setNewsTitle(title);
-        setData((items) => (title && title != "" && items) ? AllData.filter(a => a.Baslik.toLocaleLowerCase().includes(title.toLocaleLowerCase())) : AllData);
-    }
 
     const RecordAllAction = async () => {
         setBusy(true);
@@ -132,26 +137,31 @@ const Haberler = () => {
             <button className="btn btn-success float-end" disabled={busy} onClick={async () => await RecordAllAction()} style={{ width: "250px" }}>Haberleri Listesini Güncelle</button>
             <div className="clearfix"></div>
             <br />
-            {data != null ? <DataTable
-                pagination
-                striped
-                selectableRows
+
+            <MDBDataTable
+                exportToCSV
+                searchLabel="Arama"
+                entriesLabel="Gösterim Sayısı"
+                paginationLabel={["Önceki", "Sonraki"]}
+                infoLabel={["Gösterim", "den", "e", "kadar"]}
                 responsive
-                columns={columns}
+                striped
+                bordered
+                hover
+                noBottomColumns
                 data={data}
-                customStyles={customStyles}
-            /> : <div>Yükleniyor...</div>}
+            />
         </AdminLayout >
 
     )
 }
-// export const getServerSideProps = async () => {
-//     const result = await GetAllNews();
-//     return {
-//         props: {
-//             result
-//         }
-//     }
-// }
+export const getServerSideProps = async () => {
+    const result = await GetAllNews();
+    return {
+        props: {
+            result
+        }
+    }
+}
 
 export default Haberler;
