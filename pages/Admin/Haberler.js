@@ -9,7 +9,6 @@ import NProgress from 'nprogress';
 import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 
-
 const columns = [
     {
         name: 'Baslik',
