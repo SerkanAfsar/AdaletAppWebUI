@@ -8,6 +8,7 @@ import Link from "next/link";
 import NProgress from 'nprogress';
 import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
+import ErrorComponent from "../../Components/Admin/ErrorComponent";
 
 const columns = [
     {
@@ -54,6 +55,14 @@ const customStyles = {
 let AllData;
 
 const Haberler = ({ result }) => {
+
+    if (result && result.hasError) {
+        return (
+            <AdminLayout activePageName="Haberler">
+                <ErrorComponent errors={result.errorList} />
+            </AdminLayout>
+        )
+    }
 
     const data = {
         columns: [
