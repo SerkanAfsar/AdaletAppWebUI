@@ -44,7 +44,6 @@ export const GetCategoryList = async () => {
         .then(resp => {
             return {
                 hasError: false,
-                urlPath: null,
                 data: resp.data.entities
             }
 

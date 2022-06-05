@@ -1,0 +1,66 @@
+@use "../../styles/variables" as *;
+.header {
+    background: $primaryColor;
+    line-height: 30px;
+
+    .headerTop {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .navBrand {
+            color: #fff;
+            font-size: 30px;
+            font-weight: bold;
+        }
+        .nav {
+            display: flex;
+            align-items: center;
+            i {
+                color: #fff;
+                font-size: 30px;
+            }
+        }
+    }
+    .headerBottom {
+        display: none;
+        &.active {
+            display: inline-block;
+        }
+    }
+
+    .menuList {
+        margin: 0px;
+        padding: 0px;
+        list-style: none;
+        display: inline-flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+
+        li {
+            display: inline-block;
+            &:first-child {
+                a {
+                    padding-left: 0px;
+                }
+            }
+            & > a {
+                color: #fff;
+                font-size: 14px;
+                padding: 10px 10px;
+                font-weight: bold;
+                text-transform: uppercase;
+                display: flex;
+                align-items: center;
+            }
+        }
+        .otherCategories {
+            display: none;
+            width: 100%;
+
+            &.displayed {
+                display: inline;
+            }
+        }
+    }
+}

@@ -1,13 +1,27 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import { signIn } from 'next-auth/react'
+import Layout from '../Components/Layout'
+import { GetCategoryList } from '../Crud'
 
 
-export default function Home() {
+export default function Home({ categoryList }) {
+
   return (
-    <div className='container'>
-      <h1>Deneme 123</h1>
-      <button onClick={() => signIn()}>Giriş</button>
-    </div>
+    <Layout categoryList={categoryList}>
+      <div>Deneme 123</div>
+    </Layout>
+
   )
+}
+
+export const getStaticProps = async () => {
+  const categoryList = await GetCategoryList();
+
+
+  return {
+    props: {
+      categoryList
+    }
+  }
 }
