@@ -34,8 +34,7 @@ const DashboardMainComponent = () => {
             <DashboardUrl title="Kategori Ekle" link="/Admin/KategoriEkle" icon="bi bi-folder-plus" />
             <DashboardUrl title="Kategori Listesi" link="/Admin/Kategoriler" icon="bi bi-card-checklist" />
             <DashboardUrl title="Haber Ekle" link="/Admin/HaberEkle" icon="bi bi-file-plus" />
-            <DashboardUrl title="Haber Listesi" link="/Admin/HaberListesi" icon="bi bi-list-check" />
-
+            <DashboardUrl title="Haber Listesi" link="/Admin/Haberler" icon="bi bi-list-check" />
         </div>
     )
 }
