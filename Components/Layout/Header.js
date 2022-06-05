@@ -3,6 +3,7 @@ import styles from './Header.module.scss';
 import Link from "next/link";
 
 const Header = ({ categoryList }) => {
+
     if (categoryList.hasError) {
         return (
             <div>Error Accoured</div>
@@ -16,14 +17,16 @@ const Header = ({ categoryList }) => {
         <header className={`${styles.header}`}>
             <div className="container">
                 <div className={styles.headerTop}>
-                    <Link href="/">
-                        <a className={styles.navBrand} title="Adalet Haberleri">Adalet Haberleri</a>
-                    </Link>
                     <nav className={styles.nav}>
                         <ul className={styles.menuList}>
+                            <li>
+                                <Link href="/">
+                                    <a className={styles.navBrand} title="Adalet Haberleri">Adalet Haberleri</a>
+                                </Link>
+                            </li>
                             {mainList.map((item) => (
                                 <li key={item.id}>
-                                    <Link href="/">
+                                    <Link href={{ pathname: "/haberler/[kategoridetay]", query: { kategoridetay: item.seoUrl } }}>
                                         <a title={item.categoryName}>
                                             {item.categoryName}
                                         </a>
@@ -33,23 +36,23 @@ const Header = ({ categoryList }) => {
                             <li>
                                 <a onClick={() => setShow(!show)}>Diğer Kategoriler</a>
                             </li>
+                            <div className={show ? `${styles.headerBottom} ${styles.active}` : `${styles.headerBottom}`}>
+                                {otherCategories.map((item) => (
+                                    <li key={item.id}>
+                                        <Link href={{ pathname: "/haberler/[kategoridetay]", query: { kategoridetay: item.seoUrl } }}>
+                                            <a title={item.categoryName}>
+                                                {item.categoryName}
+                                            </a>
+                                        </Link>
+                                    </li>
+                                ))}
+                            </div>
                         </ul>
                     </nav>
                 </div>
-                <div className={show ? `${styles.headerBottom} ${styles.active}` : `${styles.headerBottom}`}>
-                    <ul className={styles.menuList}>
-                        {otherCategories.map((item) => (
-                            <li key={item.id}>
-                                <Link href="/">
-                                    <a title={item.categoryName}>
-                                        {item.categoryName}
-                                    </a>
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+
             </div>
-        </header>)
+
+        </header >)
 }
 export default Header;

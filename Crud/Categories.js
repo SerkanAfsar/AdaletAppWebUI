@@ -13,6 +13,19 @@ export const GetCategory = async (id) => {
         });
 }
 
+export const GetCategoryBySlug = async (slug) => {
+    return await ApiClient().get(`/Categories/GetCategoryBySlug/${slug}`)
+        .then(resp => {
+            return {
+                hasError: false,
+                data: resp.data.entity
+            }
+        }).catch(err => {
+            const result = StatusCodeHelper(err);
+            return result;
+        });
+}
+
 export const GetCategoryCount = async () => {
     return await ApiClient().get(`/Categories/GetCategoryCount`)
         .then(resp => {
