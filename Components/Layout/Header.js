@@ -14,11 +14,9 @@ const Header = ({ categoryList }) => {
         );
     }
 
-
     const headerRef = useRef();
     useEffect(() => {
         window.addEventListener("scroll", (e) => {
-
             if (window.scrollY >= ((headerRef.current && headerRef.current.clientHeight) || 70)) {
                 setisSticky(true);
             }
@@ -26,14 +24,13 @@ const Header = ({ categoryList }) => {
                 setisSticky(false);
             }
         });
-
     }, []);
 
     useEffect(() => {
         setShow(false);
         setNavOpen(false);
         setisSticky(false);
-    }, [router.asPath])
+    }, [router])
 
     const [show, setShow] = useState(false);
     const [isSticky, setisSticky] = useState(false);

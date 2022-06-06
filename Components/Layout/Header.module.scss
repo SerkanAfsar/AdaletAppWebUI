@@ -14,7 +14,6 @@
 
 .header {
     background: $primaryColor;
-
     &.scrolled {
         animation: scrolledKeyFrame 0.5s ease-in-out;
         position: sticky;
