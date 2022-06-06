@@ -1,0 +1,20 @@
+.aboutSection {
+    display: block;
+    text-align: left;
+    position: sticky;
+    position: -webkit-sticky;
+    bottom: 0px;
+    left: 0px;
+    h2 {
+        color: #fff;
+        display: block;
+        margin-bottom: 10px;
+    }
+    p {
+        color: #fff;
+        font-size: 13px;
+        font-weight: lighter;
+        text-align: left;
+        display: block;
+    }
+}

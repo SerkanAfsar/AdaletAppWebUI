@@ -1,6 +1,4 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import { signIn } from 'next-auth/react'
 import Layout from '../Components/Layout'
 import { GetCategoryList } from '../Crud'
 

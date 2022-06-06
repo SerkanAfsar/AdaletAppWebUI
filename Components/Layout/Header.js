@@ -1,20 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styles from './Header.module.scss';
 import Link from "next/link";
+import { useRouter } from "next/router";
+
 
 const Header = ({ categoryList }) => {
+
+    const router = useRouter();
 
     if (categoryList.hasError) {
         return (
             <div>Error Accoured</div>
         );
     }
+
+
+    const headerRef = useRef();
+    useEffect(() => {
+        window.addEventListener("scroll", (e) => {
+
+            if (window.scrollY >= ((headerRef.current && headerRef.current.clientHeight) || 70)) {
+                setisSticky(true);
+            }
+            else {
+                setisSticky(false);
+            }
+        });
+
+    }, []);
+
+    useEffect(() => {
+        setShow(false);
+        setNavOpen(false);
+        setisSticky(false);
+    }, [router.asPath])
+
     const [show, setShow] = useState(false);
+    const [isSticky, setisSticky] = useState(false);
     const [navOpen, setNavOpen] = useState(false);
     const mainList = categoryList.data.slice(0, 5);
     const otherCategories = categoryList.data.slice(5, categoryList.data.lenght);
     return (
-        <header className={`${styles.header}`}>
+        <header ref={headerRef} className={isSticky ? `${styles.header} ${styles.scrolled}` : `${styles.header}`}>
             <div className="container">
                 <div className={styles.headerTop}>
                     <nav className={styles.nav}>

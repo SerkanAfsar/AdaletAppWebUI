@@ -1,0 +1,11 @@
+@use "../../../styles/variables" as *;
+
+.footer {
+    background: $primaryColor;
+    padding: 20px 0px;
+
+    bottom: 0px;
+    left: 0px;
+    display: block;
+    width: 100%;
+}

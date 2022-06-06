@@ -1,8 +1,28 @@
 @use "../../styles/variables" as *;
 @use "../../styles/mixins" as *;
 
+@keyframes scrolledKeyFrame {
+    from {
+        top: -100%;
+        opacity: 0;
+    }
+    to {
+        top: 0px;
+        opacity: 1;
+    }
+}
+
 .header {
     background: $primaryColor;
+
+    &.scrolled {
+        animation: scrolledKeyFrame 0.5s ease-in-out;
+        position: sticky;
+        position: -webkit-sticky;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+    }
 
     .headerTop {
         display: flex;
@@ -14,7 +34,6 @@
             justify-content: space-between;
             width: 100%;
             padding: 10px 0px;
-
             .mobileBrand {
                 display: none;
                 color: #fff;
@@ -79,7 +98,7 @@
                         display: inline-block;
                     }
                     display: block;
-                    width: 220px;
+                    width: 230px;
                     position: fixed;
                     background: $primaryColor;
                     height: 100%;
