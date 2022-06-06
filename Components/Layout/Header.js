@@ -10,21 +10,28 @@ const Header = ({ categoryList }) => {
         );
     }
     const [show, setShow] = useState(false);
+    const [navOpen, setNavOpen] = useState(false);
     const mainList = categoryList.data.slice(0, 5);
     const otherCategories = categoryList.data.slice(5, categoryList.data.lenght);
-
     return (
         <header className={`${styles.header}`}>
             <div className="container">
                 <div className={styles.headerTop}>
                     <nav className={styles.nav}>
-                        <ul className={styles.menuList}>
+                        <Link href="/">
+                            <a className={styles.mobileBrand} title="Adalet Haberleri">Adalet Haberleri</a>
+                        </Link>
+                        <ul className={navOpen ? `${styles.menuList} ${styles.opened}` : `${styles.menuList}`}>
                             <li>
                                 <Link href="/">
                                     <a className={styles.navBrand} title="Adalet Haberleri">Adalet Haberleri</a>
                                 </Link>
+                                <button type="button" onClick={() => setNavOpen(!navOpen)}>
+                                    <i className="bi bi-x-circle-fill"></i>
+                                </button>
+
                             </li>
-                            {mainList.map((item) => (
+                            {mainList && mainList.map((item) => (
                                 <li key={item.id}>
                                     <Link href={{ pathname: "/haberler/[kategoridetay]", query: { kategoridetay: item.seoUrl } }}>
                                         <a title={item.categoryName}>
@@ -37,7 +44,7 @@ const Header = ({ categoryList }) => {
                                 <a onClick={() => setShow(!show)}>Diğer Kategoriler</a>
                             </li>
                             <div className={show ? `${styles.headerBottom} ${styles.active}` : `${styles.headerBottom}`}>
-                                {otherCategories.map((item) => (
+                                {otherCategories && otherCategories.map((item) => (
                                     <li key={item.id}>
                                         <Link href={{ pathname: "/haberler/[kategoridetay]", query: { kategoridetay: item.seoUrl } }}>
                                             <a title={item.categoryName}>
@@ -48,11 +55,12 @@ const Header = ({ categoryList }) => {
                                 ))}
                             </div>
                         </ul>
+                        <button type="button" onClick={() => setNavOpen(!navOpen)}>
+                            <i class="bi bi-list"></i>
+                        </button>
                     </nav>
                 </div>
-
             </div>
-
-        </header >)
+        </header>)
 }
 export default Header;
