@@ -1,0 +1,37 @@
+@use "../../../styles/variables" as *;
+
+.rightNewsWrapper {
+    background: #000;
+    border-radius: 10px;
+    display: block;
+    padding: 15px;
+    color: #fff;
+    height: 100%;
+    h3 {
+        font-size: 22px;
+        font-weight: bold;
+        display: block;
+        text-align: left;
+    }
+    ul {
+        list-style: none;
+        display: block;
+        li {
+            display: block;
+            border-bottom: 1px solid $primaryColor;
+            padding-bottom: 10px;
+            margin-top: 10px;
+            a {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                span {
+                    margin-right: 10px;
+                    font-size: 14px;
+                    font-weight: lighter;
+                    width: 250px;
+                }
+            }
+        }
+    }
+}

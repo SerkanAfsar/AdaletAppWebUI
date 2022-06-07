@@ -9,7 +9,7 @@
     position: relative;
     border-radius: 10px;
     @media all and (min-width: 1024px) {
-        min-height: 410px;
+        min-height: 300px;
     }
     @include tablet {
         min-height: 300px;
