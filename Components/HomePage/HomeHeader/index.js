@@ -19,7 +19,7 @@ const HomeHeader = ({ headerNews }) => {
     return (
         <section>
             <div className="container">
-                <div className="row g-3">
+                <div className="row g-4">
                     <div className="col-md-8 col-12">
                         <BannerNews item={items.item} />
                     </div>

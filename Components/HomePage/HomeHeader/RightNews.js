@@ -14,7 +14,7 @@ const RightNews = ({ lastItems }) => {
                         <a>
                             <span>{item.title}</span>
 
-                            <Image src={`${process.env.NEXT_PUBLIC_IMAGE_PATH}${item.pictureUrl}`} layout="fixed" objectFit="cover" width={120} height={80} />
+                            <Image src={`${process.env.NEXT_PUBLIC_IMAGE_PATH}${item.pictureUrl}`} layout="fixed" objectFit="cover" width={100} height={70} />
 
                         </a>
                     </li>

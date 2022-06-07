@@ -4,9 +4,13 @@
     background: #000;
     border-radius: 10px;
     display: block;
-    padding: 15px;
+    padding: 25px;
     color: #fff;
     height: 100%;
+    display: flex;
+    justify-content: space-around;
+
+    flex-direction: column;
     h3 {
         font-size: 22px;
         font-weight: bold;
@@ -18,9 +22,12 @@
         display: block;
         li {
             display: block;
-            border-bottom: 1px solid $primaryColor;
+            border-bottom: 2px solid $primaryColor;
             padding-bottom: 10px;
             margin-top: 10px;
+            &:last-child {
+                border-bottom: none;
+            }
             a {
                 display: flex;
                 justify-content: space-between;
