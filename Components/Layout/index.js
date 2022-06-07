@@ -10,7 +10,7 @@ const Layout = ({ children, categoryList }) => {
         <>
             <Header categoryList={categoryList} />
             <main>
-                <div className='container' style={{ height: "3000px" }}>
+                <div className='container'>
                     {children}
                 </div>
             </main>

@@ -2,9 +2,7 @@
     display: block;
     text-align: left;
     position: sticky;
-    position: -webkit-sticky;
-    bottom: 0px;
-    left: 0px;
+
     h2 {
         color: #fff;
         display: block;
@@ -12,9 +10,10 @@
     }
     p {
         color: #fff;
-        font-size: 13px;
+        font-size: 14px;
         font-weight: lighter;
         text-align: left;
         display: block;
+        line-height: 28px;
     }
 }

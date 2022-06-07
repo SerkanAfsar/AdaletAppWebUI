@@ -1,6 +1,8 @@
+@use "./variables" as *;
 html,
 body,
 #__next {
+  background: $bgColor;
   padding: 0px;
   min-height: 100vh;
   margin: 0px;
