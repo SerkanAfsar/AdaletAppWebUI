@@ -1,0 +1,62 @@
+@use "../../../styles/mixins" as *;
+@use "../../../styles/variables" as *;
+.bigOne {
+    display: block;
+    height: 100%;
+    background-position: center;
+    background-repeat: none;
+    background-size: cover;
+    position: relative;
+    border-radius: 10px;
+    @media all and (min-width: 1024px) {
+        min-height: 410px;
+    }
+    @include tablet {
+        min-height: 300px;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        right: 0px;
+        z-index: 10;
+        bottom: 0px;
+        border-radius: 10px;
+        background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7)) no-repeat;
+    }
+    .bottomInfo {
+        position: absolute;
+        left: 0px;
+        bottom: 20px;
+        right: 0px;
+        height: auto;
+        padding: 20px;
+
+        color: #fff;
+        z-index: 10;
+        a {
+            font-size: 24px;
+            line-height: 40px;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+            &:hover {
+                color: inherit;
+            }
+            @include tablet {
+                font-size: 20px;
+            }
+        }
+        .categoryDetail {
+            background-color: $secondaryColor;
+            padding: 0px 10px;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 13px;
+            display: inline-block;
+            font-weight: normal;
+        }
+    }
+}

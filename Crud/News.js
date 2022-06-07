@@ -40,6 +40,19 @@ export const GetAllNews = async () => {
         })
 }
 
+export const GetLastFourNews = async () => {
+    return await ApiClient().get(`/News/GetLastFourNews`)
+        .then(resp => {
+            return {
+                hasError: false,
+                data: resp?.data
+            }
+        }).catch(err => {
+            const result = StatusCodeHelper(err);
+            return result;
+        })
+}
+
 export const DeleteNewsById = async (id, tokenKey) => {
     return await ApiClient(tokenKey).delete(`/News/DeleteArticle/${id}`)
         .then(resp => {

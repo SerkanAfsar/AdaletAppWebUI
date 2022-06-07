@@ -1,0 +1,15 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.homeStatusBar {
+    display: block;
+    padding: 20px 0px;
+    width: 100%;
+    background: #fff;
+
+    .date {
+        color: $secondaryColor;
+        font-weight: bold;
+        font-size: 18px;
+    }
+}
