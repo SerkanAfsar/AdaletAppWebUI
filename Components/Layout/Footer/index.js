@@ -8,7 +8,7 @@ const Footer = ({ headerNews, categoryList }) => {
     return (
         <footer className={styles.footer}>
             <div className="container">
-                <div className="row">
+                <div className="row g-4">
                     <FooterAbout />
                     <FooterLastNews headerNews={headerNews} />
                     <FooterCategories categoryList={categoryList} />

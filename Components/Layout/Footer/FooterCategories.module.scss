@@ -1,4 +1,4 @@
-.lastNewsSection {
+.footerCategoriesSection {
     display: block;
     text-align: left;
 
@@ -8,5 +8,18 @@
         margin-bottom: 10px;
         font-size: 25px;
         font-weight: bold;
+    }
+    ul {
+        li {
+            display: block;
+            padding: 10px 0px;
+
+            a {
+                color: #fff;
+                font-size: 14px;
+                font-weight: bold;
+                display: block;
+            }
+        }
     }
 }
