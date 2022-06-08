@@ -3,7 +3,7 @@ import Footer from './Footer';
 import Header from './Header';
 import styles from './index.module.scss';
 
-const Layout = ({ children, categoryList }) => {
+const Layout = ({ children, categoryList, headerNews }) => {
 
 
     return (
@@ -12,7 +12,7 @@ const Layout = ({ children, categoryList }) => {
             <main>
                 {children}
             </main>
-            <Footer />
+            <Footer headerNews={headerNews} categoryList={categoryList} />
         </>
     );
 

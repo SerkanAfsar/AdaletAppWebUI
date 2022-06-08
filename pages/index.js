@@ -8,7 +8,7 @@ import { GetCategoryList, GetLastFourNews } from '../Crud'
 export default function Home({ categoryList, headerNews }) {
 
   return (
-    <Layout categoryList={categoryList}>
+    <Layout categoryList={categoryList} headerNews={headerNews} >
       <HomeStatusBar />
       <HomeHeader headerNews={headerNews} />
     </Layout>

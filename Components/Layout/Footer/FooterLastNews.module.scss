@@ -1,0 +1,35 @@
+@use "../../../styles/variables" as *;
+.lastNewsSection {
+    display: block;
+    text-align: left;
+
+    h2 {
+        color: #fff;
+        display: block;
+        margin-bottom: 10px;
+        font-size: 25px;
+        font-weight: bold;
+    }
+    ul {
+        li {
+            display: block;
+            width: 100%;
+            padding: 10px 0px;
+            border-bottom: 1px solid #fff;
+            &:last-child {
+                border-bottom: none;
+            }
+            a {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                span {
+                    color: #fff;
+                    font-size: 14px;
+
+                    text-transform: capitalize;
+                }
+            }
+        }
+    }
+}

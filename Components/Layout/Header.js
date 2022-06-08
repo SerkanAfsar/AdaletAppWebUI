@@ -80,11 +80,11 @@ const Header = ({ categoryList }) => {
                             </div>
                         </ul>
                         <button type="button" onClick={() => setNavOpen(!navOpen)}>
-                            <i class="bi bi-list"></i>
+                            <i className="bi bi-list"></i>
                         </button>
                     </nav>
                 </div>
             </div>
-        </header>)
+        </header >)
 }
 export default Header;

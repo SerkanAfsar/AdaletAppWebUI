@@ -35,6 +35,7 @@
                 display: none;
                 color: #fff;
                 font-size: 20px;
+
                 @include mobile {
                     display: inline-block;
                 }

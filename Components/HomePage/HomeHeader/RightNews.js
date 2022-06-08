@@ -13,8 +13,9 @@ const RightNews = ({ lastItems }) => {
                     <li key={item.id}>
                         <a>
                             <span>{item.title}</span>
-
-                            <Image src={`${process.env.NEXT_PUBLIC_IMAGE_PATH}${item.pictureUrl}`} layout="fixed" objectFit="cover" width={100} height={70} />
+                            {item.pictureUrl && (
+                                <Image src={`${process.env.NEXT_PUBLIC_IMAGE_PATH}${item.pictureUrl}`} layout="fixed" objectFit="cover" width={80} height={60} />
+                            )}
 
                         </a>
                     </li>
