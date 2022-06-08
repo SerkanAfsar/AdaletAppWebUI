@@ -25,9 +25,6 @@
     }
 
     .headerTop {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
         .nav {
             display: flex;
             align-items: center;
@@ -56,47 +53,28 @@
                 }
             }
             .menuList {
-                margin: 0px;
-                padding: 0px;
-                list-style: none;
                 display: inline-flex;
                 flex-wrap: wrap;
                 align-items: center;
-                justify-content: space-between;
+                justify-content: space-around;
+                width: 100%;
                 .navBrand {
                     color: #fff;
                     font-size: 20px;
                     font-weight: bold;
-                    display: inline-flex;
-                    align-self: flex-start;
                 }
                 li {
-                    display: inline-block;
                     & > a {
                         color: #fff;
                         font-size: 14px;
-                        padding: 10px 10px;
                         font-weight: bold;
                         text-transform: uppercase;
-                        display: flex;
-                        align-items: center;
                     }
                 }
-                .otherCategories {
-                    display: none;
-                    width: 100%;
-                    &.displayed {
-                        display: inline;
-                    }
-                }
+
                 @include mobile {
                     padding: 10px 0px;
-                    .navBrand {
-                        color: #fff;
-                        font-size: 14px;
-                        font-weight: bold;
-                        display: inline-block;
-                    }
+                    z-index: 99;
                     display: block;
                     width: 230px;
                     position: fixed;
@@ -114,6 +92,7 @@
                     }
                     li {
                         display: block;
+                        width: 100%;
                         &:first-child {
                             display: flex;
                             align-items: center;
@@ -128,10 +107,16 @@
                                 }
                             }
                         }
-
                         a {
                             display: block;
+                            padding: 10px;
                         }
+                    }
+                    .navBrand {
+                        color: #fff;
+                        font-size: 14px;
+                        font-weight: bold;
+                        display: inline-block;
                     }
                 }
             }
@@ -139,8 +124,18 @@
     }
     .headerBottom {
         display: none;
+        width: 100%;
+        margin: 10px 0px;
+        @include mobile {
+            margin: 0px;
+        }
         &.active {
-            display: inline-block;
+            display: inline-flex;
+            justify-content: space-around;
+            @include mobile {
+                display: block;
+                width: 100%;
+            }
         }
     }
 }
