@@ -7,7 +7,6 @@ const FooterCategories = ({ categoryList }) => {
     const list1 = categoryList.data.slice(0, 6);
     const list2 = categoryList.data.slice(6, 12);
 
-
     return (
         <div className="col-md-4 col-12">
             <div className={styles.footerCategoriesSection}>
@@ -37,7 +36,6 @@ const FooterCategories = ({ categoryList }) => {
                     </div>
                 </div>
             </div>
-
         </div>
     );
 }
