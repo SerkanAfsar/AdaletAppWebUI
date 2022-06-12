@@ -12,6 +12,18 @@ export const GetCategory = async (id) => {
             return result;
         });
 }
+export const GetMainPageCategories = async () => {
+    return await ApiClient().get(`/Categories/GetMainPageCategories`)
+        .then(resp => {
+            return {
+                hasError: false,
+                data: resp.data.entities
+            }
+        }).catch(err => {
+            const result = StatusCodeHelper(err);
+            return result;
+        });
+}
 
 export const GetCategoryBySlug = async (slug) => {
     return await ApiClient().get(`/Categories/GetCategoryBySlug/${slug}`)

@@ -1,0 +1,30 @@
+.categorySide {
+    background: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    height: 100%;
+    ul {
+        list-style: none;
+        margin: 0px;
+        padding: 0px;
+        li {
+            display: block;
+            width: 100%;
+            span {
+                display: block;
+                width: 100%;
+                padding: 10px 0px;
+                color: #ababac;
+                font-size: 15px;
+                font-weight: 600;
+                transition: all 0.2s ease-in-out;
+
+                &:hover,
+                &.active {
+                    color: #000;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
