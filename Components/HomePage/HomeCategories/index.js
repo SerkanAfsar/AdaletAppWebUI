@@ -17,7 +17,6 @@ const HomeCategories = ({ MainPageCategories }) => {
                         <CategoryNewsSide categories={MainPageCategories} activeCategory={activeCategory} />
                     </div>
                 </div>
-
             </div>
         </section>
     );
