@@ -40,3 +40,12 @@ export const DeleteUser = async (userId, tokenKey) => {
         return result;
     });
 }
+
+export const IsLogged = async (tokenKey) => {
+    return await ApiClient(tokenKey).get(`/Users/IsLogged`).then(resp => {
+        return resp.data;
+    }).catch((err) => {
+        const result = StatusCodeHelper(err);
+        return result;
+    });
+}
