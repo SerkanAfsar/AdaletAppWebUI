@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AdminLayout from "../../Components/AdminLayout";
 import styles from './HaberEkle.module.scss';
 import { WebSiteList } from '../../Utilities';
@@ -24,6 +24,11 @@ const HaberEkle = ({ result }) => {
         sourceUrl: null,
         source: 1
     });
+
+    useEffect(() => {
+        console.log(data);
+    }, [data]);
+
     const [sourceList, setSourceList] = useState(WebSiteList);
     const [catList, setcatList] = useState(((result?.categoryList && !result.categoryList.hasError) && result.categoryList.data) || null);
 
@@ -43,8 +48,6 @@ const HaberEkle = ({ result }) => {
         }
         toast.success("Haber Eklendi", { position: "top-right" });
         router.push("/Admin/Haberler");
-
-
     }
 
     const setFile = (e) => {
@@ -56,7 +59,7 @@ const HaberEkle = ({ result }) => {
             <form className={styles.formSubmit} onSubmit={async (e) => await handleSubmit(e)}>
                 <div className="form-group mb-3">
                     <label>Resim Seçiniz</label>
-                    <input type="file" onChange={(e) => setFile(e)} className="form-control" placeholder="Resim Seçiniz..." />
+                    <input type="file" accept="image/*" onChange={(e) => setFile(e)} className="form-control" placeholder="Resim Seçiniz..." />
                 </div>
                 <div className="form-group mb-3">
                     <label htmlFor="haberBaslik">Haber Başlık</label>
@@ -78,7 +81,7 @@ const HaberEkle = ({ result }) => {
                 </div>
                 <div className="form-group mb-3">
                     <label htmlFor="haberIcerik">Kategori</label>
-                    <select className='form-select' value={data.categoryId} onChange={(e) => (setData((item) => ({ ...item, categoryId: e.target.value })))}>
+                    <select className='form-select' value={data.categoryId} onChange={(e) => (setData((item) => ({ ...item, categoryId: parseInt(e.target.value) })))}>
                         <option value="0">Kategori Seçiniz</option>
                         {catList && catList.map((item) => (
                             <option key={item.id} value={item.id}>
@@ -98,7 +101,7 @@ const HaberEkle = ({ result }) => {
                 </div>
                 <div className="form-group mb-3">
                     <label htmlFor="webSiteList">Kaynak Tipi</label>
-                    <select className='form-select' value={data.source} onChange={(e) => (setData((item) => ({ ...item, source: e.target.value })))}>
+                    <select className='form-select' value={data.source} onChange={(e) => (setData((item) => ({ ...item, source: parseInt(e.target.value) })))}>
                         <option value="0">Kaynak Seçiniz</option>
                         {sourceList && sourceList.map((item) => (
                             <option key={item.id} value={item.id}>

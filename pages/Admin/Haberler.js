@@ -126,12 +126,13 @@ const Haberler = ({ result }) => {
         </AdminLayout>
     )
 }
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
     const result = await GetAllNews();
     return {
         props: {
             result
-        }
+        },
+        revalidate: 1
     }
 }
 
