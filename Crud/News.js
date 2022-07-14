@@ -104,3 +104,17 @@ export const AddNews = async (data, tokenKey) => {
             return result;
         })
 }
+
+export const GetNewsByCategoryIDPager = async (categoryId, pageLimit, count) => {
+
+    return ApiClient().get(`/News/GetNewsByCategoryIDPager/${categoryId}/${pageLimit}/${count}`)
+        .then(resp => {
+            return {
+                hasError: false,
+                data: resp.data.entities
+            }
+        }).catch(err => {
+            const result = StatusCodeHelper(err);
+            return result;
+        });
+}

@@ -1,6 +1,7 @@
 import { AUTH_ERROR_MESSAGE, AUTH_FORBIDDEN_MESSAGE, CUSTOM_ERROR_MESSAGE } from "./MessageList"
 
 export const StatusCodeHelper = (err) => {
+
     if (err.response) {
         switch (err.response.status) {
             case 401: {
