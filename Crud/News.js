@@ -118,3 +118,16 @@ export const GetNewsByCategoryIDPager = async (categoryId, pageLimit, count) => 
             return result;
         });
 }
+export const GetMostReadedNews = async (categoryId) => {
+    return await ApiClient().get(`/News/CategoryDetailMostReadedNews/${categoryId}`)
+        .then(resp => {
+            return {
+                hasError: false,
+                data: resp.data.entities
+            }
+
+        }).catch(err => {
+            const result = StatusCodeHelper(err);
+            return result;
+        });
+}

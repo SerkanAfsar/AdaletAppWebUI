@@ -20,10 +20,8 @@ export default NextAuth({
                     password: credentials.password,
                     rePassword: credentials.password,
                 }).then(data => {
-
                     return data?.data?.entity;
                 }).catch((err) => {
-
                     return null;
                 });
 

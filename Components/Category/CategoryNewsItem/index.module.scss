@@ -1,0 +1,47 @@
+.wrapper {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: stretch;
+    margin-bottom: 10px;
+    .imageContainer {
+        width: 195px;
+        height: 145px;
+        position: relative;
+        display: block;
+        flex: 2;
+        border: 1px solid #000;
+        img {
+            transition: all 0.4s ease-in-out;
+        }
+        &:hover {
+            img {
+                transform: rotate(15deg) scale(1.4);
+            }
+        }
+    }
+    .infoArea {
+        flex: 5;
+        margin-left: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+        gap: 10px;
+
+        .title {
+            font-size: 15px;
+            color: #000;
+            font-weight: bold;
+            display: block;
+            text-align: left;
+        }
+        .subInfo {
+            display: block;
+            color: #000;
+            font-size: 13px;
+            display: block;
+            text-align: left;
+        }
+    }
+}

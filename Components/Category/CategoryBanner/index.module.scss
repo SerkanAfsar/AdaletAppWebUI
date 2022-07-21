@@ -1,0 +1,17 @@
+@use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
+
+.categoryStatusBar {
+    display: flex;
+    padding: 10px 0px;
+    width: 100%;
+    background: #fff;
+    align-items: center;
+
+    .date {
+        color: $secondaryColor;
+        font-weight: bold;
+        font-size: 18px;
+        height: 100%;
+    }
+}

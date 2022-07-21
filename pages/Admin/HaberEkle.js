@@ -8,11 +8,8 @@ import Editor from "../../Components/Editor";
 import { useRouter } from "next/router";
 import { getSession, useSession } from "next-auth/react";
 
-
-
 const HaberEkle = ({ result }) => {
     const router = useRouter();
-
     const { data: session } = useSession();
 
     const [data, setData] = useState({
@@ -119,6 +116,7 @@ const HaberEkle = ({ result }) => {
 export const getServerSideProps = async (context) => {
     const session = await getSession(context);
     const categoryList = await GetCategoryList(session?.jwt);
+
     return {
         props: {
             result: {

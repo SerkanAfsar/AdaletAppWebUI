@@ -1,0 +1,19 @@
+.wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    .badge {
+        color: #fff;
+        border-radius: 5px;
+        background: #000;
+        display: block;
+        padding: 10px 15px;
+        font-size: 13px;
+        width: 150px;
+        text-align: center;
+    }
+    & > div {
+        margin-left: 10px;
+    }
+}

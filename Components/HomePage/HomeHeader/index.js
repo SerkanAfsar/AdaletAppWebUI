@@ -5,7 +5,7 @@ import RightNews from "./RightNews";
 
 const HomeHeader = ({ headerNews }) => {
     if (headerNews && headerNews.hasError) {
-        console.log(headerNews.errorList);
+
         return (
             <div>Error Accored</div>
         )

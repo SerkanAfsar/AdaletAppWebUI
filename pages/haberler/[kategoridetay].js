@@ -1,18 +1,21 @@
 import React from "react";
 import styles from './KategoriDetay.module.scss';
-import { GetCategoryBySlug, GetCategoryList, GetNewsByCategoryIDPager } from '../../Crud';
+import { GetCategoryBySlug, GetCategoryList, GetMostReadedNews, GetNewsByCategoryIDPager } from '../../Crud';
 import Layout from "../../Components/Layout";
 import CategoryLeftSide from "@/Components/Category/CategoryLeftSide";
+import CategoryBanner from "@/Components/Category/CategoryBanner";
 
-const KategoriDetay = ({ category, categoryList }) => {
+const KategoriDetay = ({ category, categoryList, mostReadedNews, categoryNews }) => {
     return (
         <Layout categoryList={categoryList}>
+            <CategoryBanner mostReadedNews={mostReadedNews} />
             <div className="container">
                 <div className="row">
                     <div className="col-12">
+
                         <div className={styles.wrapper}>
                             <div className={styles.leftArea}>
-                                <CategoryLeftSide />
+                                <CategoryLeftSide categoryNews={categoryNews} />
                             </div>
                             <div className={styles.rightArea}>Deneme 1234</div>
                         </div>
@@ -28,15 +31,17 @@ export const getStaticProps = async (context) => {
 
     const categoryList = await GetCategoryList();
     const { kategoridetay } = context.params;
-    const category = await GetCategoryBySlug(kategoridetay);
 
+    const category = await GetCategoryBySlug(kategoridetay);
     const categoryNews = await GetNewsByCategoryIDPager(category?.data?.id, 1, 7);
-    console.log(categoryNews);
+    const mostReadedNews = await GetMostReadedNews(category?.data?.id);
 
     return {
         props: {
-            category: category,
-            categoryList: categoryList
+            category,
+            categoryList,
+            mostReadedNews,
+            categoryNews
         },
         revalidate: 1
     }
