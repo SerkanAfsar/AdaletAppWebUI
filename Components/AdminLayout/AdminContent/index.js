@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import styles from './Content.module.scss';
-import { AdminContext } from "../../Context/AdminContext";
-const Content = ({ activePageName, children }) => {
+import styles from './index.module.scss';
+import { AdminContext } from "../../../Context/AdminContext";
+const AdminContent = ({ activePageName, children }) => {
     const { closed } = useContext(AdminContext);
 
     return (
@@ -15,4 +15,4 @@ const Content = ({ activePageName, children }) => {
         </div>
     )
 }
-export default Content;
+export default AdminContent;

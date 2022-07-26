@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react"
 import { toast, ToastContainer } from 'react-toastify';
 import AdminTopSide from "./AdminTopSide";
 import AdminAside from "./AdminAside";
-import Content from "./Content";
+import AdminContent from "./AdminContent";
 import { AdminProvider } from "../../Context/AdminContext";
 import { IsLogged } from "Crud";
 
@@ -44,9 +44,9 @@ const AdminLayout = ({ children, activePageName }) => {
         <AdminProvider>
             <AdminTopSide />
             <AdminAside activePageName={activePageName} />
-            <Content activePageName={activePageName}>
+            <AdminContent activePageName={activePageName}>
                 {children}
-            </Content>
+            </AdminContent>
             <ToastContainer />
         </AdminProvider>
     );

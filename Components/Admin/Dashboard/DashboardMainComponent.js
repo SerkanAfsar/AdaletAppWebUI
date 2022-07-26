@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { GetCategoryCount, GetNewsCount } from '../../Crud';
+import { GetCategoryCount, GetNewsCount } from '../../../Crud';
 
 import CounterComponent from './CounterComponent';
 import DashboardUrl from './DashboardUrl';

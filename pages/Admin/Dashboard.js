@@ -1,6 +1,6 @@
 import React from "react";
-import DashboardMainComponent from "../../Components/Admin/DashboardComponent";
-import AdminLayout from "../../Components/AdminLayout";
+import DashboardMainComponent from "@/Components/Admin/Dashboard/DashboardMainComponent";
+import AdminLayout from "@/Components/AdminLayout";
 import { useSession } from "next-auth/react";
 import styles from './Dashboard.module.scss';
 import { GetCategoryCount, GetNewsCount } from "Crud";
@@ -44,7 +44,6 @@ const Dashboard = ({ categoryCountResult, newsCountResult }) => {
         )
     }
     return (
-
         <AdminLayout activeLink="anasayfa" activePageName={"DashBoard"}>
             <DashboardMainComponent
                 categoryCountResult={categoryCountResult}

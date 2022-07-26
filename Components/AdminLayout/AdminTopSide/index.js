@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import styles from './AdminTopSide.module.scss';
-import { AdminContext } from "../../Context/AdminContext";
+import styles from './index.module.scss';
+import { AdminContext } from "../../../Context/AdminContext";
 import { useSession } from "next-auth/react";
 
 const AdminTopSide = () => {

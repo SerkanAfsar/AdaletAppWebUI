@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import styles from './AdminAside.module.scss';
+import styles from './index.module.scss';
 import Link from "next/link";
-import { AdminContext } from "../../Context/AdminContext";
+import { AdminContext } from "../../../Context/AdminContext";
 import { useRouter } from 'next/router';
 import { signOut, useSession } from "next-auth/react"
 
