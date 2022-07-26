@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './CounterComponent.module.scss';
-import { GetNewsCount } from '../../Crud/News';
+import { GetNewsCount } from 'Crud';
 
 const NewsCountComponent = ({ info }) => {
 
