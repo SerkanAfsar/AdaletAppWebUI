@@ -3,10 +3,10 @@ import styles from './CategoryNewsSide.module.scss';
 import ReactCSSTransitionGroup from 'react-transition-group';
 import Image from "next/image";
 import Link from "next/link";
+import { convertToLocalDate } from "Utilities";
 
 const CategoryNewsSide = ({ categories, activeCategory }) => {
     const [loaded, setLoaded] = useState(false);
-
     useEffect(() => {
         setLoaded(!loaded);
     }, [activeCategory])
@@ -22,13 +22,15 @@ const CategoryNewsSide = ({ categories, activeCategory }) => {
                         <Link href={`/haberdetay/[...urlparams]`} as={`/haberdetay/${item.categorySeoUrl}/${item.seoUrl}`}>
                             <a title={item.title}>{item.title}</a>
                         </Link>
+                        <b className={styles.bold}>
+                            {convertToLocalDate(item.createDate)}
+                        </b>
                         <p className={styles.articleContent__subTitle}>
                             {item.subTitle}
                         </p>
                     </div>
                 </div>
             ))}
-
         </div>
     )
 }
