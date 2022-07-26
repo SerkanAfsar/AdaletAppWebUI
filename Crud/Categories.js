@@ -117,17 +117,18 @@ export const DeleteCategory = async (id, tokenKey) => {
             return result;
         })
 }
-export const GetTop10MostReadedNewsList = async () => {
-    return await ApiClient().get(`/Categories/GetCategoryList`)
+
+export const GetCategoryWithArticlesByLimit = async (categoryId, pageLimit, count) => {
+
+    return ApiClient().get(`/Categories/GetNewsByCategoryIDPager/${categoryId}/${pageLimit}/${count}`)
         .then(resp => {
             return {
                 hasError: false,
-                data: resp.data.entities
+                data: resp.data.entity
             }
-
         }).catch(err => {
             const result = StatusCodeHelper(err);
             return result;
-        })
+        });
 }
 

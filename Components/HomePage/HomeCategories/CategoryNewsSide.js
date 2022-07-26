@@ -6,7 +6,6 @@ import Link from "next/link";
 
 const CategoryNewsSide = ({ categories, activeCategory }) => {
     const [loaded, setLoaded] = useState(false);
-    console.log(activeCategory);
 
     useEffect(() => {
         setLoaded(!loaded);

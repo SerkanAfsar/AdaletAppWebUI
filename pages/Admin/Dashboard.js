@@ -9,9 +9,6 @@ const Dashboard = () => {
 
     const { data: session, status } = useSession();
 
-    console.log("Session is ", session);
-    console.log("Status is ", status);
-
     if (status === "loading") {
         return (
             <div style={{ display: "flex", height: "100vh", flex: 1, justifyContent: "center", alignItems: "center" }}>

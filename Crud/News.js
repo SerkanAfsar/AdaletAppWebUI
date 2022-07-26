@@ -105,19 +105,7 @@ export const AddNews = async (data, tokenKey) => {
         })
 }
 
-export const GetNewsByCategoryIDPager = async (categoryId, pageLimit, count) => {
 
-    return ApiClient().get(`/News/GetNewsByCategoryIDPager/${categoryId}/${pageLimit}/${count}`)
-        .then(resp => {
-            return {
-                hasError: false,
-                data: resp.data.entities
-            }
-        }).catch(err => {
-            const result = StatusCodeHelper(err);
-            return result;
-        });
-}
 export const GetMostReadedNews = async (categoryId) => {
     return await ApiClient().get(`/News/CategoryDetailMostReadedNews/${categoryId}`)
         .then(resp => {

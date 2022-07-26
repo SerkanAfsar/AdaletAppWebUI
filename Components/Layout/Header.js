@@ -57,11 +57,12 @@ const Header = ({ categoryList }) => {
                             </li>
                             {mainList && mainList.map((item) => (
                                 <li key={item.id}>
-                                    <Link href={{ pathname: "/haberler/[kategoridetay]", query: { kategoridetay: item.seoUrl } }}>
+                                    <Link href={`/haberler/[...slug]`} as={`/haberler/${item.seoUrl}`}>
                                         <a title={item.categoryName}>
                                             {item.categoryName}
                                         </a>
                                     </Link>
+
                                 </li>
                             ))}
                             <li>
@@ -70,7 +71,7 @@ const Header = ({ categoryList }) => {
                             <div className={show ? `${styles.headerBottom} ${styles.active}` : `${styles.headerBottom}`}>
                                 {otherCategories && otherCategories.map((item) => (
                                     <li key={item.id}>
-                                        <Link href={{ pathname: "/haberler/[kategoridetay]", query: { kategoridetay: item.seoUrl } }}>
+                                        <Link href={{ pathname: "/haberler/[...slug]", query: { slug: item.seoUrl } }}>
                                             <a title={item.categoryName}>
                                                 {item.categoryName}
                                             </a>

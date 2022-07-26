@@ -34,7 +34,7 @@ const Kategoriler = ({ result }) => {
             mainPageCategory: e.target.checked,
             updateDate: new Date()
         }, session?.jwt);
-        console.log(resp);
+
         if (resp.hasError) {
             resp.errorList.forEach(element => {
                 toast.error(element, { position: "top-right" });

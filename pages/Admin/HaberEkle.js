@@ -23,7 +23,7 @@ const HaberEkle = ({ result }) => {
     });
 
     useEffect(() => {
-        console.log(data);
+
     }, [data]);
 
     const [sourceList, setSourceList] = useState(WebSiteList);
@@ -36,7 +36,7 @@ const HaberEkle = ({ result }) => {
             formData.append(item, data[item]);
         }
         const responseResult = await AddNews(formData, session?.jwt);
-        console.log(responseResult);
+
         if (responseResult?.hasError) {
             responseResult.errorList.forEach(err => {
                 toast.error(err, { position: "top-right" });
