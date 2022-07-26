@@ -12,13 +12,13 @@ const AdminLayout = ({ children, activePageName }) => {
     const { data: session, status } = useSession();
     const [logSuccess, setLogSuccess] = useState(true);
 
-    useEffect(() => {
-        const result = async () => {
-            const deneme = await IsLogged(session?.jwt);
-            setLogSuccess(deneme?.hasError ? false : true);
-        };
-        result();
-    }, [status]);
+    // useEffect(() => {
+    //     const result = async () => {
+    //         const deneme = await IsLogged(session?.jwt);
+    //         setLogSuccess(deneme?.hasError ? false : true);
+    //     };
+    //     result();
+    // }, [status]);
 
 
     if (status === "loading") {

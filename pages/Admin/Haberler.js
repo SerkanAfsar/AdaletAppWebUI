@@ -7,15 +7,15 @@ import Link from "next/link";
 import NProgress from 'nprogress';
 import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
-import ErrorComponent from "../../Components/Admin/ErrorComponent";
 import { useRouter } from "next/router";
+import AlertModule from "@/Components/CustomComponents/AlertModule";
 
 const Haberler = ({ result }) => {
     const router = useRouter();
     if (result && result.hasError) {
         return (
             <AdminLayout activePageName="Haberler">
-                <ErrorComponent errors={result.errorList} />
+                <AlertModule items={result.errorList} />
             </AdminLayout>
         )
     }

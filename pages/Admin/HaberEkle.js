@@ -7,8 +7,9 @@ import { GetCategoryList, AddNews } from '../../Crud';
 import Editor from "../../Components/Editor";
 import { useRouter } from "next/router";
 import { getSession, useSession } from "next-auth/react";
+import AlertModule from "@/Components/CustomComponents/AlertModule";
 
-const HaberEkle = ({ result }) => {
+const HaberEkle = ({ categoryList }) => {
     const router = useRouter();
     const { data: session } = useSession();
 
@@ -27,7 +28,7 @@ const HaberEkle = ({ result }) => {
     }, [data]);
 
     const [sourceList, setSourceList] = useState(WebSiteList);
-    const [catList, setcatList] = useState(((result?.categoryList && !result.categoryList.hasError) && result.categoryList.data) || null);
+    const [catList, setcatList] = useState(((categoryList && !categoryList.hasError) && categoryList.data) || null);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -49,6 +50,14 @@ const HaberEkle = ({ result }) => {
 
     const setFile = (e) => {
         setData((item) => ({ ...item, fileInput: e.target.files[0] }));
+    }
+    if (categoryList.hasError) {
+        return (
+            <AdminLayout activePageName="Haber Ekle">
+                <AlertModule items={categoryList.errorList} />
+            </AdminLayout>
+        )
+
     }
 
     return (
@@ -119,9 +128,7 @@ export const getServerSideProps = async (context) => {
 
     return {
         props: {
-            result: {
-                categoryList
-            }
+            categoryList
         }
     }
 }

@@ -5,8 +5,8 @@ const AlertModule = ({ items }) => {
     return (
         <div className="alert alert-danger" role="alert" >
             <ul>
-                {items?.map(item => (
-                    <li>{item}</li>
+                {items?.map((item, index) => (
+                    <li key={index}>{item}</li>
                 ))}
             </ul>
         </div>

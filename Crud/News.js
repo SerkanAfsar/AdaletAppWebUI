@@ -99,7 +99,6 @@ export const AddNews = async (data, tokenKey) => {
                 data: resp?.data
             }
         }).catch(err => {
-
             const result = StatusCodeHelper(err);
             return result;
         })

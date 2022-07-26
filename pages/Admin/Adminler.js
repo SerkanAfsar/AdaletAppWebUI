@@ -4,7 +4,8 @@ import AdminLayout from "../../Components/AdminLayout";
 import { DeleteUser, GetUsersList } from "../../Crud";
 import styles from './Adminler.module.scss';
 import { getSession, useSession } from "next-auth/react";
-import ErrorComponent from "../../Components/Admin/ErrorComponent";
+import AlertModule from "@/Components/CustomComponents/AlertModule";
+
 
 const Adminler = ({ result }) => {
     const { data: session } = useSession();
@@ -13,7 +14,7 @@ const Adminler = ({ result }) => {
         return (
             <AdminLayout activePageName="Adminler">
                 {data.hasError && (
-                    <ErrorComponent errors={data.errorList} />
+                    <AlertModule items={data.errorList} />
                 )}
             </AdminLayout>
         );
