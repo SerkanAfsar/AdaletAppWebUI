@@ -2,12 +2,18 @@ import React from "react";
 import styles from './FooterLastNews.module.scss';
 import Link from "next/link";
 import Image from "next/image";
+import AlertModule from "@/Components/CustomComponents/AlertModule";
 
 const FooterLastNews = ({ headerNews }) => {
     if (headerNews && headerNews.hasError) {
-        return (<div>
-            Error Accoured Header News
-        </div>)
+        return (
+            <div className="col-md-4 col-12">
+                <div className={styles.lastNewsSection}>
+                    <h2>Son Haberler</h2>
+                    <AlertModule items={headerNews.errorList} />
+                </div>
+            </div>
+        )
     }
     return (
         <div className="col-md-4 col-12">

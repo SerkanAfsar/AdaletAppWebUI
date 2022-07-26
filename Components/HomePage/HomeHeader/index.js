@@ -1,3 +1,4 @@
+import AlertModule from "@/Components/CustomComponents/AlertModule";
 import React from "react";
 import BannerNews from "./BannerNews";
 import styles from './index.module.scss';
@@ -7,7 +8,15 @@ const HomeHeader = ({ headerNews }) => {
     if (headerNews && headerNews.hasError) {
 
         return (
-            <div>Error Accored</div>
+            <section>
+                <div className="container">
+                    <div className="row g-4">
+                        <div className="col-12">
+                            <AlertModule items={headerNews.errorList} />
+                        </div>
+                    </div>
+                </div>
+            </section>
         )
     }
     const items = (headerNews && headerNews.data?.entities) && {

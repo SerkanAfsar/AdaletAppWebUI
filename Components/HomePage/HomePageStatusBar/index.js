@@ -1,7 +1,7 @@
 import React from "react";
-import styles from './HomeStatusBar.module.scss';
+import styles from './index.module.scss';
 
-const HomeStatusBar = () => {
+const HomePageStatusBar = () => {
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     return (
         <div className={styles.homeStatusBar}>
@@ -18,4 +18,4 @@ const HomeStatusBar = () => {
         </div>
     );
 }
-export default HomeStatusBar;
+export default HomePageStatusBar;

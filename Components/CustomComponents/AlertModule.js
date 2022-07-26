@@ -3,7 +3,7 @@ import styles from './AlertModule.module.scss';
 
 const AlertModule = ({ items }) => {
     return (
-        <div className="alert alert-danger" role="alert" >
+        <div className={`${styles.wrapper} alert alert-danger`} role="alert" >
             <ul>
                 {items?.map((item, index) => (
                     <li key={index}>{item}</li>

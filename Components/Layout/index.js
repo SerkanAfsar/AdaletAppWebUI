@@ -12,7 +12,9 @@ const Layout = ({ children, categoryList, headerNews }) => {
             <main>
                 {children}
             </main>
-            <Footer headerNews={headerNews} categoryList={categoryList} />
+            <Footer
+                headerNews={headerNews}
+                categoryList={categoryList} />
         </>
     );
 

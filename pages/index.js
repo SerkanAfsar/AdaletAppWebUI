@@ -1,6 +1,6 @@
 import HomeCategories from '@/Components/HomePage/HomeCategories'
 import HomeHeader from '@/Components/HomePage/HomeHeader'
-import HomeStatusBar from '@/Components/HomePage/HomeStatusBar'
+import HomePageStatusBar from '@/Components/HomePage/HomePageStatusBar'
 import Head from 'next/head'
 import Layout from '../Components/Layout'
 import { GetCategoryList, GetLastFourNews, GetMainPageCategories } from '../Crud'
@@ -9,8 +9,9 @@ import { GetCategoryList, GetLastFourNews, GetMainPageCategories } from '../Crud
 export default function Home({ categoryList, headerNews, MainPageCategories }) {
 
   return (
+
     <Layout categoryList={categoryList} headerNews={headerNews} >
-      <HomeStatusBar />
+      <HomePageStatusBar />
       <HomeHeader headerNews={headerNews} />
       <HomeCategories MainPageCategories={MainPageCategories} />
     </Layout>
@@ -28,6 +29,7 @@ export const getStaticProps = async () => {
       categoryList,
       headerNews,
       MainPageCategories
-    }
+    },
+    revalidate: 1
   }
 }

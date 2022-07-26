@@ -1,3 +1,4 @@
+import AlertModule from "@/Components/CustomComponents/AlertModule";
 import React, { useState } from "react";
 import CategoryNewsSide from "./CategoryNewsSide";
 import CategorySide from "./CategorySide";
@@ -5,7 +6,23 @@ import styles from './index.module.scss';
 
 
 const HomeCategories = ({ MainPageCategories }) => {
-    const [activeCategory, setActiveCategory] = useState(MainPageCategories?.data[0] || null)
+    const [activeCategory, setActiveCategory] = useState(MainPageCategories?.data && MainPageCategories?.data[0])
+
+    if (MainPageCategories.hasError) {
+        return (
+            <section className={styles.homeCategories}>
+                <div className="container">
+                    <div className="row g-4">
+                        <div className="col-12">
+                            <AlertModule items={MainPageCategories.errorList} />
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        )
+    }
+
     return (
         <section className={styles.homeCategories}>
             <div className="container">
