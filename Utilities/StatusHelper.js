@@ -33,6 +33,6 @@ export const StatusCodeHelper = (err) => {
 
     return {
         hasError: true,
-        errorList: err.message
+        errorList: [err.message]
     }
 }

@@ -2,10 +2,11 @@ import React from "react";
 import DashboardMainComponent from "../../Components/Admin/DashboardComponent";
 import AdminLayout from "../../Components/AdminLayout";
 import { useSession } from "next-auth/react";
-
 import styles from './Dashboard.module.scss';
+import { GetCategoryCount, GetNewsCount } from "Crud";
+import AlertModule from "@/Components/CustomComponents/AlertModule";
 
-const Dashboard = () => {
+const Dashboard = ({ categoryCountResult, newsCountResult }) => {
 
     const { data: session, status } = useSession();
 
@@ -28,11 +29,39 @@ const Dashboard = () => {
             </div>
         )
     }
-
+    if (categoryCountResult.hasError) {
+        return (
+            <AdminLayout activeLink="anasayfa" activePageName={"DashBoard"}>
+                <AlertModule items={categoryCountResult?.errorList} />
+            </AdminLayout>
+        )
+    }
+    if (newsCountResult.hasError) {
+        return (
+            <AdminLayout activeLink="anasayfa" activePageName={"DashBoard"}>
+                <AlertModule items={newsCountResult?.errorList} />
+            </AdminLayout>
+        )
+    }
     return (
+
         <AdminLayout activeLink="anasayfa" activePageName={"DashBoard"}>
-            <DashboardMainComponent />
+            <DashboardMainComponent
+                categoryCountResult={categoryCountResult}
+                newsCountResult={newsCountResult} />
         </AdminLayout>
     )
+}
+export const getStaticProps = async () => {
+    const categoryCountResult = await GetCategoryCount();
+    const newsCountResult = await GetNewsCount();
+
+    return {
+        props: {
+            categoryCountResult,
+            newsCountResult
+        },
+        revalidate: 1
+    }
 }
 export default Dashboard;

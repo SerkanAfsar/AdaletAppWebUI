@@ -31,7 +31,7 @@ const AdminLayout = ({ children, activePageName }) => {
         )
     }
 
-    if (status === "unauthenticated" || !logSuccess) {
+    if (status === "unauthenticated") {
         return (
             <div style={{ display: "flex", height: "100vh", flex: 1, justifyContent: "center", alignItems: "center" }}>
                 <div className="alert alert-danger" role="alert">

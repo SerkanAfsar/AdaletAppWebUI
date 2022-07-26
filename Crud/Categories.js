@@ -46,6 +46,7 @@ export const GetCategoryCount = async () => {
                 data: resp.data
             }
         }).catch(err => {
+
             const result = StatusCodeHelper(err);
             return result;
         });

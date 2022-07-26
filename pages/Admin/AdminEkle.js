@@ -5,6 +5,7 @@ import { CreateUser, GetRolesList } from "../../Crud";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { getSession, useSession } from "next-auth/react";
+import AlertModule from "@/Components/CustomComponents/AlertModule";
 
 const AdminEkle = ({ rolesResult }) => {
     const { data: session } = useSession();
@@ -33,6 +34,13 @@ const AdminEkle = ({ rolesResult }) => {
         toast.success(result.data, { position: "top-right" });
         router.push("/Admin/Adminler");
     }
+    if (rolesResult.hasError) {
+        return (
+            <AdminLayout activeLink="adminekle" activePageName="AdminEkle">
+                <AlertModule items={rolesResult.errorList} />
+            </AdminLayout>
+        )
+    }
 
     return (
         <AdminLayout activeLink="adminekle" activePageName="AdminEkle">
@@ -41,7 +49,7 @@ const AdminEkle = ({ rolesResult }) => {
                     <label htmlFor="nameSurname">Rol Tipi</label>
                     <select className="form-select" value={val.roleName} onChange={(e) => setVal({ ...val, roleName: e.target.value })}>
                         <option value="">Rol Seçiniz</option>
-                        {rolesResult && rolesResult.map((item) => (
+                        {rolesResult?.entities && rolesResult?.entities?.map((item) => (
                             <option key={item.name} value={item.name}>
                                 {item.name}
                             </option>
@@ -72,10 +80,11 @@ const AdminEkle = ({ rolesResult }) => {
 }
 export const getServerSideProps = async (context) => {
     const session = await getSession(context);
-    const result = await GetRolesList(session?.jwt);
+    const rolesResult = await GetRolesList(session?.jwt);
+
     return {
         props: {
-            rolesResult: result?.entities
+            rolesResult
         }
     }
 }
