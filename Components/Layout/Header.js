@@ -64,8 +64,8 @@ const Header = ({ categoryList }) => {
                                     <i className="bi bi-x-circle-fill"></i>
                                 </button>
                             </li>
-                            {mainList && mainList.map((item) => (
-                                <li key={item.id}>
+                            {mainList && mainList.map((item, index) => (
+                                <li key={index}>
                                     <Link href={`/haberler/[...slug]`} as={`/haberler/${item.seoUrl}`}>
                                         <a title={item.categoryName}>
                                             {item.categoryName}
@@ -78,8 +78,8 @@ const Header = ({ categoryList }) => {
                                 <a onClick={() => setShow(!show)}>Diğer Kategoriler</a>
                             </li>
                             <div className={show ? `${styles.headerBottom} ${styles.active}` : `${styles.headerBottom}`}>
-                                {otherCategories && otherCategories.map((item) => (
-                                    <li key={item.id}>
+                                {otherCategories && otherCategories.map((item, index) => (
+                                    <li key={index}>
                                         <Link href={{ pathname: "/haberler/[...slug]", query: { slug: item.seoUrl } }}>
                                             <a title={item.categoryName}>
                                                 {item.categoryName}

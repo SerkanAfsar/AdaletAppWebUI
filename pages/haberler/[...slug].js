@@ -4,11 +4,12 @@ import { GetCategoryBySlug, GetCategoryList, GetMostReadedNews, GetCategoryWithA
 import Layout from "../../Components/Layout";
 import CategoryLeftSide from "@/Components/Category/CategoryLeftSide";
 import CategoryBanner from "@/Components/Category/CategoryBanner";
+import { CONSTANTS } from "Utilities";
 
 const KategoriDetay = ({ categoryList, categoryNews }) => {
     return (
         <Layout categoryList={categoryList}>
-            <CategoryBanner />
+            {/* <CategoryBanner /> */}
             <div className="container">
                 <div className="row">
                     <div className="col-12">
@@ -29,10 +30,9 @@ export default KategoriDetay;
 export const getStaticProps = async (context) => {
 
     const categoryList = await GetCategoryList();
-    const { slug } = context.params;
-    console.log(slug);
 
-    const categoryNews = await GetCategoryWithArticlesByLimit(slug[0], slug[1] ? slug[1] : 1, 7);
+    const { slug } = context.params;
+    const categoryNews = await GetCategoryWithArticlesByLimit(slug[0], slug[1] ? slug[1] : 1, CONSTANTS.CATEGORYPAGECOUNT);
     // const mostReadedNews = await GetMostReadedNews(category?.data?.id);
 
     return {

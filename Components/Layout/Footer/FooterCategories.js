@@ -29,9 +29,9 @@ const FooterCategories = ({ categoryList }) => {
                 <div className="row">
                     <div className="col">
                         <ul>
-                            {list1.map((item) => (
-                                <li key={item.id}>
-                                    <Link href={`/haberler/[kategoridetay]`} as={`/haberler/${item.seoUrl}`}>
+                            {list1.map((item, index) => (
+                                <li key={index}>
+                                    <Link href={`/haberler/[...slug]`} as={`/haberler/${item.seoUrl}`}>
                                         <a title={item.categoryName}>{item.categoryName}</a>
                                     </Link>
                                 </li>
@@ -40,9 +40,9 @@ const FooterCategories = ({ categoryList }) => {
                     </div>
                     <div className="col">
                         <ul>
-                            {list2.map((item) => (
-                                <li key={item.id}>
-                                    <Link href={`/haberler/[kategoridetay]`} as={`/haberler/${item.seoUrl}`}>
+                            {list2.map((item, index) => (
+                                <li key={index}>
+                                    <Link href={`/haberler/[...slug]`} as={`/haberler/${item.seoUrl}`}>
                                         <a title={item.categoryName}>{item.categoryName}</a>
                                     </Link>
                                 </li>
