@@ -1,10 +1,11 @@
 import React from "react";
-import styles from './CategoryLeftSide.module.scss';
-import CategoryNewsItem from "./CategoryNewsItem";
-import CategoryPagination from "./CategoryPagination";
+import styles from './index.module.scss';
+import CategoryNewsItem from "../CategoryNewsItem";
+import CategoryPagination from "../CategoryPagination";
 
 
 const CategoryLeftSide = ({ categoryNews, category }) => {
+    console.log(categoryNews);
 
     return (
         <div className={styles.wrapper}>

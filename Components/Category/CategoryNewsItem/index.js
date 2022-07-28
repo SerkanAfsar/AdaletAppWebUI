@@ -2,6 +2,7 @@ import React from "react";
 import styles from './index.module.scss';
 import Image from "next/image";
 import Link from "next/link";
+import { convertToLocalDate } from "Utilities";
 
 const CategoryNewsItem = ({ item }) => {
     return (
@@ -21,6 +22,7 @@ const CategoryNewsItem = ({ item }) => {
                         </a>
                     </Link>
                 </h3>
+                <b>{convertToLocalDate(item.createDate)}</b>
                 <p className={styles.subInfo}>{item.subTitle}</p>
             </div>
         </div>

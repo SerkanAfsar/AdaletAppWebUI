@@ -1,3 +1,4 @@
+@use "../../../styles/variables" as *;
 .wrapper {
     display: flex;
     justify-content: flex-start;
@@ -27,7 +28,7 @@
         flex-direction: column;
         justify-content: flex-start;
         align-items: stretch;
-        gap: 10px;
+        gap: 8px;
 
         .title {
             font-size: 15px;
@@ -35,6 +36,7 @@
             font-weight: bold;
             display: block;
             text-align: left;
+            margin-bottom: 0px;
         }
         .subInfo {
             display: block;
@@ -42,6 +44,11 @@
             font-size: 13px;
             display: block;
             text-align: left;
+        }
+        b {
+            color: $primaryColor;
+            font-size: 12px;
+            font-weight: bold;
         }
     }
 }
