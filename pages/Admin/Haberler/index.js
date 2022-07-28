@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import AdminLayout from "../../Components/AdminLayout";
+import AdminLayout from "@/Components/AdminLayout";
 import { MDBDataTable } from 'mdbreact';
-import { DeleteNewsById, GetAllNews, RecordAllNewsToDb } from "../../Crud";
+import { DeleteNewsById, GetAllNews, RecordAllNewsToDb } from "Crud";
 import Image from 'next/image';
 import Link from "next/link";
 import NProgress from 'nprogress';
@@ -62,27 +62,22 @@ const Haberler = ({ result }) => {
 
     const { data: session } = useSession();
     const [busy, setBusy] = useState(false);
-    const [updated, setUpdated] = useState(false);
-
-    useEffect(() => {
-        if (updated == true) {
-            router.reload();
-        }
-    }, [updated]);
 
     const RecordAllAction = async () => {
         setBusy(true);
         NProgress.start();
-        const result = await RecordAllNewsToDb(session?.jwt);
-        if (result?.hasError) {
-            result.errorList.forEach(err => {
+        const responseResult = await RecordAllNewsToDb(session?.jwt);
+        if (responseResult?.hasError) {
+            responseResult.errorList.forEach(err => {
                 toast.error(err, { position: "top-right" });
             });
             return;
         }
-        setUpdated(true);
+        toast.success("Haberler Güncellendi", { position: "top-right" })
         NProgress.done();
         setBusy(false);
+        console.log(responseResult.data.entities);
+        setNews((items) => [...items, ...responseResult.data.entities]);
     }
 
     const HaberSil = async (id) => {

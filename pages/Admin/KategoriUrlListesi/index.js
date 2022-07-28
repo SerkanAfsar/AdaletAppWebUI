@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
-import AdminLayout from "../../Components/AdminLayout";
+import AdminLayout from "@/Components/AdminLayout";
 import { getSession, useSession } from "next-auth/react";
-import { DeleteCategorySource, GetCategory, GetCategorySourceListByCategoryId } from "../../Crud";
-import styles from './KategoriUrlListesi.module.scss';
-import AddCategorySource from "../../Components/Admin/AddCategorySource";
+import { DeleteCategorySource, GetCategory, GetCategorySourceListByCategoryId } from "Crud";
+import styles from './index.module.scss';
+import AddCategorySource from "@/Components/Admin/AddCategorySource";
 import { useRouter } from "next/router";
-import { WebSiteList } from "../../Utilities";
+import { WebSiteList } from "Utilities";
 import { toast } from "react-toastify";
-
 
 const KategoriUrlListesi = ({ result }) => {
     const router = useRouter();

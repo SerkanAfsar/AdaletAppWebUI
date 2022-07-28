@@ -1,71 +1,63 @@
-import React, { useEffect, useState } from "react";
-import AdminLayout from "../../Components/AdminLayout";
-import styles from './HaberEkle.module.scss';
-import { WebSiteList } from '../../Utilities';
+import React, { useState, useEffect } from 'react';
+import AdminLayout from '@/Components/AdminLayout';
+import { GetCategoryList, GetNewsById, UpdateNews } from 'Crud';
+import { useRouter } from 'next/router';
+import styles from './index.module.scss';
+import Editor from '@/Components/Editor';
+import { WebSiteList } from 'Utilities';
 import { toast } from 'react-toastify';
-import { GetCategoryList, AddNews } from '../../Crud';
-import Editor from "../../Components/Editor";
-import { useRouter } from "next/router";
-import { getSession, useSession } from "next-auth/react";
-import AlertModule from "@/Components/CustomComponents/AlertModule";
+import { useSession } from 'next-auth/react';
 
-const HaberEkle = ({ categoryList }) => {
-    const router = useRouter();
+const HaberGuncelle = ({ result }) => {
     const { data: session } = useSession();
+    const router = useRouter();
+    const [data, setData] = useState((result?.newsResult?.data?.isSuccess && { ...result?.newsResult?.data?.entity, fileInput: null }) || null);
+    const [catList, setcatList] = useState(((result?.categoryList && !result.categoryList.hasError) && result.categoryList.data) || null);
+    const [sourceList, setSourceList] = useState(WebSiteList || null);
 
-    const [data, setData] = useState({
-        title: "",
-        subTitle: "",
-        fileInput: null,
-        newsContent: "",
-        categoryId: 0,
-        sourceUrl: null,
-        source: 1
-    });
-
-    useEffect(() => {
-
-    }, [data]);
-
-    const [sourceList, setSourceList] = useState(WebSiteList);
-    const [catList, setcatList] = useState(((categoryList && !categoryList.hasError) && categoryList.data) || null);
+    if (data == null) {
+        return (
+            <AdminLayout activePageName="Haber Güncelle">
+                <div class="alert alert-danger" role="alert">
+                    Haber Bulunamadı!
+                </div>
+            </AdminLayout>
+        )
+    }
 
     const handleSubmit = async (e) => {
+
         e.preventDefault();
         const formData = new FormData();
         for (let item in data) {
             formData.append(item, data[item]);
         }
-        const responseResult = await AddNews(formData, session?.jwt);
 
-        if (responseResult?.hasError) {
-            responseResult.errorList.forEach(err => {
+        formData.set("updateDate", new Date().toLocaleDateString());
+        formData.delete("queue");
+
+        const updateResult = await UpdateNews(data.id, formData, session?.jwt);
+
+        if (updateResult?.hasError) {
+            updateResult.errorList.forEach(err => {
                 toast.error(err, { position: "top-right" });
             });
             return;
         }
-        toast.success("Haber Eklendi", { position: "top-right" });
+
         router.push("/Admin/Haberler");
     }
 
     const setFile = (e) => {
         setData((item) => ({ ...item, fileInput: e.target.files[0] }));
     }
-    if (categoryList.hasError) {
-        return (
-            <AdminLayout activePageName="Haber Ekle">
-                <AlertModule items={categoryList.errorList} />
-            </AdminLayout>
-        )
-
-    }
 
     return (
-        <AdminLayout activePageName="Haber Ekle">
+        <AdminLayout activePageName="Haber Güncelle">
             <form className={styles.formSubmit} onSubmit={async (e) => await handleSubmit(e)}>
                 <div className="form-group mb-3">
                     <label>Resim Seçiniz</label>
-                    <input type="file" accept="image/*" onChange={(e) => setFile(e)} className="form-control" placeholder="Resim Seçiniz..." />
+                    <input type="file" onChange={(e) => setFile(e)} className="form-control" placeholder="Resim Seçiniz..." />
                 </div>
                 <div className="form-group mb-3">
                     <label htmlFor="haberBaslik">Haber Başlık</label>
@@ -87,7 +79,7 @@ const HaberEkle = ({ categoryList }) => {
                 </div>
                 <div className="form-group mb-3">
                     <label htmlFor="haberIcerik">Kategori</label>
-                    <select className='form-select' value={data.categoryId} onChange={(e) => (setData((item) => ({ ...item, categoryId: parseInt(e.target.value) })))}>
+                    <select className='form-select' value={data.categoryId} onChange={(e) => (setData((item) => ({ ...item, categoryId: e.target.value })))}>
                         <option value="0">Kategori Seçiniz</option>
                         {catList && catList.map((item) => (
                             <option key={item.id} value={item.id}>
@@ -96,6 +88,7 @@ const HaberEkle = ({ categoryList }) => {
                         ))}
                     </select>
                 </div>
+
                 <div className="form-group mb-3">
                     <label htmlFor="kaynakUrl">Kaynak Url</label>
                     <input type="text"
@@ -107,7 +100,7 @@ const HaberEkle = ({ categoryList }) => {
                 </div>
                 <div className="form-group mb-3">
                     <label htmlFor="webSiteList">Kaynak Tipi</label>
-                    <select className='form-select' value={data.source} onChange={(e) => (setData((item) => ({ ...item, source: parseInt(e.target.value) })))}>
+                    <select className='form-select' value={data.source} onChange={(e) => (setData((item) => ({ ...item, source: e.target.value })))}>
                         <option value="0">Kaynak Seçiniz</option>
                         {sourceList && sourceList.map((item) => (
                             <option key={item.id} value={item.id}>
@@ -116,20 +109,27 @@ const HaberEkle = ({ categoryList }) => {
                         ))}
                     </select>
                 </div>
-                <button type="submit" className="btn btn-success float-end">Kaydet</button>
+                <button type="submit" className="btn btn-warning float-end">Güncelle</button>
                 <div className='clearfix'></div>
             </form>
+
         </AdminLayout>
     );
 }
+
 export const getServerSideProps = async (context) => {
-    const session = await getSession(context);
-    const categoryList = await GetCategoryList(session?.jwt);
+    const { id } = context.query;
+    const newsResult = await GetNewsById(id);
+    const categoryList = await GetCategoryList();
 
     return {
         props: {
-            categoryList
+            result: {
+                newsResult,
+                categoryList
+            }
         }
     }
 }
-export default HaberEkle;
+
+export default HaberGuncelle;

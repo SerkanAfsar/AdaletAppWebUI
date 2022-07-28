@@ -2,7 +2,7 @@ import React from "react";
 import DashboardMainComponent from "@/Components/Admin/Dashboard/DashboardMainComponent";
 import AdminLayout from "@/Components/AdminLayout";
 import { useSession } from "next-auth/react";
-import styles from './Dashboard.module.scss';
+import styles from './index.module.scss';
 import { GetCategoryCount, GetNewsCount } from "Crud";
 import AlertModule from "@/Components/CustomComponents/AlertModule";
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import AdminLayout from "../../Components/AdminLayout";
-import styles from './AdminEkle.module.scss';
-import { CreateUser, GetRolesList } from "../../Crud";
+import AdminLayout from "@/Components/AdminLayout";
+import styles from './index.module.scss';
+import { CreateUser, GetRolesList } from "Crud";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { getSession, useSession } from "next-auth/react";

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import AdminLayout from "../../Components/AdminLayout";
-import { DeleteUser, GetUsersList } from "../../Crud";
-import styles from './Adminler.module.scss';
+import AdminLayout from "@/Components/AdminLayout";
+import { DeleteUser, GetUsersList } from "Crud";
+import styles from './index.module.scss';
 import { getSession, useSession } from "next-auth/react";
 import AlertModule from "@/Components/CustomComponents/AlertModule";
 

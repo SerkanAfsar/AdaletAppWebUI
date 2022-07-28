@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import AdminLayout from "../../Components/AdminLayout";
-import styles from './Kategoriler.module.scss';
-import { DeleteCategory, GetCategoryList, UpdateCategory } from "../../Crud";
+import AdminLayout from "@/Components/AdminLayout";
+import styles from './index.module.scss';
+import { DeleteCategory, GetCategoryList, UpdateCategory } from "Crud";
 import Link from "next/link";
 import NProgress from 'nprogress';
 import { toast } from "react-toastify";
