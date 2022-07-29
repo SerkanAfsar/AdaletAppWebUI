@@ -1,0 +1,32 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 180px;
+    color: #000;
+    font-size: 20px;
+    padding: 10px;
+    transition: all 0.4s ease-in-out;
+    animation: customEffect 0.5s alternate infinite;
+    border: 2px solid #000;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: bold;
+    .imgContainer {
+        width: 100%;
+        position: relative;
+        height: 150px;
+
+        object-fit: cover;
+    }
+}
+@keyframes customEffect {
+    from {
+        color: 000;
+    }
+    to {
+        color: #d22427;
+    }
+}

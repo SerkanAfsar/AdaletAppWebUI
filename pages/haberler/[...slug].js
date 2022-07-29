@@ -5,22 +5,27 @@ import Layout from "@/Components/Layout";
 import CategoryLeftSide from "@/Components/Category/CategoryLeftSide";
 import CategoryBanner from "@/Components/Category/CategoryBanner";
 import { CONSTANTS } from "Utilities";
+import CategoryRightSide from "@/Components/Category/CategoryRightSide";
 
-const KategoriDetay = ({ categoryList, categoryNews, headerNews }) => {
+const KategoriDetay = ({ categoryList, categoryNews, headerNews, mostReadedNews }) => {
     return (
         <Layout categoryList={categoryList} headerNews={headerNews}>
-            <div className="container">
+            <div data-aos="fade-up" className="container">
                 <div className={styles.wrapper}>
+                    <div className="row mb-3">
+                        <div className="col-12">
+                            <h3>{categoryNews.data.categoryName} Haberleri</h3>
+                        </div>
+                    </div>
                     <div className="row">
                         <div className="col-md-8 col-12">
                             <CategoryLeftSide categoryNews={categoryNews} />
                         </div>
                         <div className="col-md-4 col-12">
-                            Deneme 123
+                            <CategoryRightSide />
                         </div>
                     </div>
                 </div>
-
             </div>
         </Layout>
     )
@@ -34,12 +39,12 @@ export const getStaticProps = async (context) => {
 
     const { slug } = context.params;
     const categoryNews = await GetCategoryWithArticlesByLimit(slug[0], slug[1] ? slug[1] : 1, CONSTANTS.CATEGORYPAGECOUNT);
-    // const mostReadedNews = await GetMostReadedNews(category?.data?.id);
+    const mostReadedNews = await GetMostReadedNews(categoryNews?.data?.id);
 
     return {
         props: {
             categoryList,
-            // mostReadedNews,
+            mostReadedNews,
             categoryNews,
             headerNews
         },
