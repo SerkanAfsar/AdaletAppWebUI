@@ -40,8 +40,11 @@ export const GetAllNews = async () => {
         })
 }
 
-export const GetLastFourNews = async () => {
-    return await ApiClient().get(`/News/GetLastFourNews`)
+export const GetLastFourNews = async (categoryId = null) => {
+
+    const url = categoryId == null ? `/News/GetLastFourNews` : `/News/GetLastFourNews/${categoryId}`;
+
+    return await ApiClient().get(url)
         .then(resp => {
             return {
                 hasError: false,

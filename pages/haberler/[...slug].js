@@ -7,9 +7,9 @@ import CategoryBanner from "@/Components/Category/CategoryBanner";
 import { CONSTANTS } from "Utilities";
 import CategoryRightSide from "@/Components/Category/CategoryRightSide";
 
-const KategoriDetay = ({ categoryList, categoryNews, headerNews, mostReadedNews }) => {
+const KategoriDetay = ({ categoryList, categoryNews, categoryLastNews, mostReadedNews }) => {
     return (
-        <Layout categoryList={categoryList} headerNews={headerNews}>
+        <Layout categoryList={categoryList} headerNews={categoryLastNews}>
             <div data-aos="fade-up" className="container">
                 <div className={styles.wrapper}>
                     <div className="row mb-3">
@@ -22,7 +22,7 @@ const KategoriDetay = ({ categoryList, categoryNews, headerNews, mostReadedNews 
                             <CategoryLeftSide categoryNews={categoryNews} />
                         </div>
                         <div className="col-md-4 col-12">
-                            <CategoryRightSide />
+                            <CategoryRightSide categoryLastNews={categoryLastNews} />
                         </div>
                     </div>
                 </div>
@@ -35,18 +35,18 @@ export default KategoriDetay;
 export const getStaticProps = async (context) => {
 
     const categoryList = await GetCategoryList();
-    const headerNews = await GetLastFourNews();
 
     const { slug } = context.params;
     const categoryNews = await GetCategoryWithArticlesByLimit(slug[0], slug[1] ? slug[1] : 1, CONSTANTS.CATEGORYPAGECOUNT);
     const mostReadedNews = await GetMostReadedNews(categoryNews?.data?.id);
+    const categoryLastNews = await GetLastFourNews(categoryNews?.data?.id);
 
     return {
         props: {
             categoryList,
             mostReadedNews,
             categoryNews,
-            headerNews
+            categoryLastNews
         },
         revalidate: 1
     }
@@ -57,7 +57,7 @@ export const getStaticPaths = async (context) => {
 
     const result = await GetCategoryList();
 
-    const path1 = result.data.map((item) => {
+    const path1 = result?.data?.map((item) => {
         return {
             params: {
                 slug: [`${item.seoUrl}`]
@@ -66,8 +66,10 @@ export const getStaticPaths = async (context) => {
 
     });
 
+
+
     const arr = [];
-    result.data.forEach(element => {
+    result?.data?.forEach(element => {
         const pageCount = Math.ceil(element.newsCount / 7);
         const seoUrl = element.seoUrl;
 
@@ -82,7 +84,7 @@ export const getStaticPaths = async (context) => {
 
 
     return {
-        paths: [...path1, ...arr],
+        paths: path1 ? [...path1, ...arr] : [],
         fallback: false
     }
 }

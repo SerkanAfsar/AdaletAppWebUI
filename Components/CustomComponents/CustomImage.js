@@ -7,13 +7,14 @@ const myLoader = ({ src, width, quality }) => {
 }
 
 const CustomImage = ({ imageUrl, title }) => {
+
     return (
         <Image
             alt={title}
             src={`${process.env.NEXT_PUBLIC_IMAGE_PATH}${imageUrl}`}
             layout="fill"
             objectFit="cover"
-
+            quality={100}
         />
     )
 }
