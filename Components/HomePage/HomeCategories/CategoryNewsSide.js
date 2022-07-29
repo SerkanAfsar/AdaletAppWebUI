@@ -14,7 +14,7 @@ const CategoryNewsSide = ({ categories, activeCategory }) => {
     return (
         <div className={styles.newsSide}>
             {activeCategory?.articles?.map((item) => (
-                <div className={styles.articleItem}>
+                <div className={styles.articleItem} key={item.id}>
                     <div className={styles.img}>
                         <Image src={`${process.env.NEXT_PUBLIC_IMAGE_PATH}${item.pictureUrl}`} layout="fill" objectFit="cover" />
                     </div>

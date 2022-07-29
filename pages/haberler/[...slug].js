@@ -1,26 +1,26 @@
 import React from "react";
 import styles from './KategoriDetay.module.scss';
-import { GetCategoryBySlug, GetCategoryList, GetMostReadedNews, GetCategoryWithArticlesByLimit } from '../../Crud';
-import Layout from "../../Components/Layout";
+import { GetLastFourNews, GetCategoryList, GetMostReadedNews, GetCategoryWithArticlesByLimit } from 'Crud';
+import Layout from "@/Components/Layout";
 import CategoryLeftSide from "@/Components/Category/CategoryLeftSide";
 import CategoryBanner from "@/Components/Category/CategoryBanner";
 import { CONSTANTS } from "Utilities";
 
-const KategoriDetay = ({ categoryList, categoryNews }) => {
+const KategoriDetay = ({ categoryList, categoryNews, headerNews }) => {
     return (
-        <Layout categoryList={categoryList}>
-            {/* <CategoryBanner /> */}
+        <Layout categoryList={categoryList} headerNews={headerNews}>
             <div className="container">
-                <div className="row">
-                    <div className="col-12">
-                        <div className={styles.wrapper}>
-                            <div className={styles.leftArea}>
-                                <CategoryLeftSide categoryNews={categoryNews} />
-                            </div>
-                            <div className={styles.rightArea}>Deneme 1234</div>
+                <div className={styles.wrapper}>
+                    <div className="row">
+                        <div className="col-md-8 col-12">
+                            <CategoryLeftSide categoryNews={categoryNews} />
+                        </div>
+                        <div className="col-md-4 col-12">
+                            Deneme 123
                         </div>
                     </div>
                 </div>
+
             </div>
         </Layout>
     )
@@ -30,6 +30,7 @@ export default KategoriDetay;
 export const getStaticProps = async (context) => {
 
     const categoryList = await GetCategoryList();
+    const headerNews = await GetLastFourNews();
 
     const { slug } = context.params;
     const categoryNews = await GetCategoryWithArticlesByLimit(slug[0], slug[1] ? slug[1] : 1, CONSTANTS.CATEGORYPAGECOUNT);
@@ -39,7 +40,8 @@ export const getStaticProps = async (context) => {
         props: {
             categoryList,
             // mostReadedNews,
-            categoryNews
+            categoryNews,
+            headerNews
         },
         revalidate: 1
     }

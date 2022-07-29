@@ -24,7 +24,7 @@ const HomeCategories = ({ MainPageCategories }) => {
     }
 
     return (
-        <section className={styles.homeCategories}>
+        <section data-aos="fade-up" className={styles.homeCategories}>
             <div className="container">
                 <div className="row g-4">
                     <div className="col-md-3 col-12">

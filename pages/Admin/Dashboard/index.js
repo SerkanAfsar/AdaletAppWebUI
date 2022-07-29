@@ -13,7 +13,7 @@ const Dashboard = ({ categoryCountResult, newsCountResult }) => {
     if (status === "loading") {
         return (
             <div style={{ display: "flex", height: "100vh", flex: 1, justifyContent: "center", alignItems: "center" }}>
-                <div class="alert alert-warning" role="alert">
+                <div className="alert alert-warning" role="alert">
                     Yükleniyor...
                 </div>
             </div>
@@ -23,7 +23,7 @@ const Dashboard = ({ categoryCountResult, newsCountResult }) => {
     if (status === "unauthenticated") {
         return (
             <div style={{ display: "flex", height: "100vh", flex: 1, justifyContent: "center", alignItems: "center" }}>
-                <div class="alert alert-danger" role="alert">
+                <div className="alert alert-danger" role="alert">
                     Yetkiniz Bulunmamaktadır...Giriş Başarısız..
                 </div>
             </div>

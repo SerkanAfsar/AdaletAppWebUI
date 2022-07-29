@@ -15,7 +15,7 @@ const Kategoriler = ({ result }) => {
     if (result.hasError) {
         return (
             <AdminLayout activePageName="Kategoriler">
-                <div class="alert alert-danger" role="alert">
+                <div className="alert alert-danger" role="alert">
                     <ul className={styles.listStyle}>
                         {result.errorList.map((value, index) => (
                             <li key={index}>

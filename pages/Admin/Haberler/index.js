@@ -76,7 +76,6 @@ const Haberler = ({ result }) => {
         toast.success("Haberler Güncellendi", { position: "top-right" })
         NProgress.done();
         setBusy(false);
-        console.log(responseResult.data.entities);
         setNews((items) => [...items, ...responseResult.data.entities]);
     }
 

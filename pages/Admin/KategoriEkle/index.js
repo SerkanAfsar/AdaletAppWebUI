@@ -58,8 +58,8 @@ const KategoriEkle = () => {
                     <label htmlFor="haberIcerik">Kategori İçerik</label>
                     <Editor value={data.newsContent} setContent={(content) => (setData((item) => ({ ...item, explanation: content })))} />
                 </div>
-                <div class="form-check mb-3">
-                    <input value={data.mainPageCategory} onChange={(e) => setData((item) => ({ ...item, mainPageCategory: e.target.checked }))} type="checkbox" class="form-check-input" id="exampleCheck1" />
+                <div className="form-check mb-3">
+                    <input value={data.mainPageCategory} onChange={(e) => setData((item) => ({ ...item, mainPageCategory: e.target.checked }))} type="checkbox" className="form-check-input" id="exampleCheck1" />
                     <label className="form-check-label" htmlFor="exampleCheck1" style={{ paddingTop: "5px", marginLeft: "10px" }}>Ana Sayfa Kategori?</label>
                 </div>
                 <div className="form-group mb-3">

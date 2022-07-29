@@ -18,7 +18,7 @@ const HaberGuncelle = ({ result }) => {
     if (data == null) {
         return (
             <AdminLayout activePageName="Haber Güncelle">
-                <div class="alert alert-danger" role="alert">
+                <div className="alert alert-danger" role="alert">
                     Haber Bulunamadı!
                 </div>
             </AdminLayout>

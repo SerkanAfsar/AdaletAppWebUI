@@ -1,14 +1,6 @@
 .wrapper {
-    display: flex;
-    justify-content: space-between;
     padding: 40px;
     border-radius: 5px;
     background: #fff;
     margin: 20px 0px;
-    .leftArea {
-        flex: 7;
-    }
-    .rightArea {
-        flex: 3;
-    }
 }

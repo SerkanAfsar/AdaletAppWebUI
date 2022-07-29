@@ -14,7 +14,7 @@ const KategoriGuncelle = ({ result }) => {
     if (result.hasError) {
         return (
             <AdminLayout activePageName="Kategori Güncelle">
-                <div class="alert alert-danger" role="alert">
+                <div className="alert alert-danger" role="alert">
                     <ul className={styles.listStyle}>
                         {result.errorList.map((value, index) => (
                             <li key={index}>
@@ -73,9 +73,9 @@ const KategoriGuncelle = ({ result }) => {
                     <label htmlFor="haberIcerik">Kategori İçerik</label>
                     <Editor value={data.explanation} setContent={(content) => (setData((item) => ({ ...item, explanation: content })))} />
                 </div>
-                <div class="form-check mb-3">
-                    <input defaultChecked={data.mainPageCategory} onChange={(e) => setData((item) => ({ ...item, mainPageCategory: e.target.checked }))} type="checkbox" class="form-check-input" id="exampleCheck1" />
-                    <label class="form-check-label" htmlFor="exampleCheck1" style={{ paddingTop: "5px", marginLeft: "10px" }}>Ana Sayfa Kategori?</label>
+                <div className="form-check mb-3">
+                    <input defaultChecked={data.mainPageCategory} onChange={(e) => setData((item) => ({ ...item, mainPageCategory: e.target.checked }))} type="checkbox" className="form-check-input" id="exampleCheck1" />
+                    <label className="form-check-label" htmlFor="exampleCheck1" style={{ paddingTop: "5px", marginLeft: "10px" }}>Ana Sayfa Kategori?</label>
                 </div>
                 <div className="form-group mb-3">
                     <button type="submit" className="btn btn-success float-end">Kaydet</button>

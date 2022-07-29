@@ -1,11 +1,17 @@
 import React from "react";
 import styles from './BannerNews.module.scss';
 import Link from "next/link";
+import AlertModule from "@/Components/CustomComponents/AlertModule";
 
 const BannerNews = ({ item }) => {
+    if (!item) {
+        return (
+            <div className={styles.bigOne}>
+                <AlertModule items={['No Data']} />
+            </div>
+        )
+    }
     return (
-
-
         <div className={styles.bigOne} style={{ backgroundImage: `url('${process.env.NEXT_PUBLIC_IMAGE_PATH}${item.pictureUrl}')` }}>
             <div className={styles.bottomInfo}>
                 <Link href="/haberdetay/[...urlparams]" as={`/haberdetay/${item.categorySeoUrl}/${item.seoUrl}`} >

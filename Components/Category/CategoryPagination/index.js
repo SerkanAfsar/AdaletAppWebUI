@@ -20,7 +20,7 @@ export default function CategoryPagination({ itemsLenght }) {
 
     return (
         <nav className={styles.wrapper}>
-            <ul className="pagination pagination-circle justify-content-center">
+            <ul className="pagination pagination-circle">
                 <li className="page-item">
                     <Link href={`/haberler/[...slug]`} as={`/haberler/${slug[0]}/${currentPage - 1}`}>
                         <a className={currentPage > 1 ? `page-link` : `page-link disabled`}>Önceki</a>

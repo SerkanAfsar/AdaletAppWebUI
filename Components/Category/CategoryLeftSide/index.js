@@ -5,7 +5,7 @@ import CategoryPagination from "../CategoryPagination";
 
 
 const CategoryLeftSide = ({ categoryNews, category }) => {
-    console.log(categoryNews);
+
 
     return (
         <div className={styles.wrapper}>
